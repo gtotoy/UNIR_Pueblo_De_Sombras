@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
 
         if (!isAttacking && !isDashing)
             AttackInput();
-        
     }
 
     private Vector3 MovementInput(Vector3 rawMove)
