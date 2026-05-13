@@ -4,6 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Core/MainMenu.unity
+    guid: 52de3df34983eb84a846977980f60372
+  - enabled: 1
+    path: Assets/Scenes/Testing/PlayerSandbox.unity
+    guid: b5693afa69ed2534bae31cc216f9f284
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
