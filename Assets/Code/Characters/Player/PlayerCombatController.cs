@@ -3,14 +3,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombatController : MonoBehaviour
 {
+    [Header("Cooldowns")]
     public float attackCooldown = 0.5f;
     public float specialCooldown = 4f;
-    public float rangedCooldown = 1f;
-    public float parryWindow = 0.25f;
+    public float rangedCooldown = 2f;
+
+    [Header("Ranged / Shield")]
+    public GameObject shieldProjectilePrefab;
+    public Transform shieldThrowOrigin;
+    public GameObject shieldMesh;
+    public float rangedDamage = 25f;
 
     private Animator anim;
-    private bool isBlocking, parryActive;
-    private float atkTimer, spTimer, rngTimer, parryTimer;
+    private bool isBlocking;
+    private bool shieldInFlight;
+
+    public bool IsBlocking => isBlocking;
+
+    private float atkTimer, spTimer, rngTimer;
 
     void Awake() => anim = GetComponent<Animator>();
 
@@ -19,11 +29,6 @@ public class PlayerCombatController : MonoBehaviour
         if (atkTimer > 0) atkTimer -= Time.deltaTime;
         if (spTimer > 0) spTimer -= Time.deltaTime;
         if (rngTimer > 0) rngTimer -= Time.deltaTime;
-        if (parryTimer > 0)
-        {
-            parryTimer -= Time.deltaTime;
-            if (parryTimer <= 0) parryActive = false;
-        }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -45,43 +50,75 @@ public class PlayerCombatController : MonoBehaviour
     public void OnRanged(InputAction.CallbackContext context)
     {
         if (!context.performed || rngTimer > 0) return;
+        if (shieldInFlight) return;
+
+        if (isBlocking)
+        {
+            isBlocking = false;
+            anim.SetBool("isBlocking", false);
+        }
+
         rngTimer = rangedCooldown;
+        shieldInFlight = true;
+
+        if (shieldMesh) shieldMesh.SetActive(false);
+
         anim.SetTrigger("rangedAttack");
-        SpawnProjectile();
+
+        Invoke(nameof(ThrowShield), 0.15f);
+    }
+
+    void ThrowShield()
+    {
+        Transform origin = shieldThrowOrigin ? shieldThrowOrigin : transform;
+        GameObject proj = Instantiate(shieldProjectilePrefab, origin.position, new Quaternion(180.0f, 0.0f, 0.0f, 0.0f));
+        proj.tag = "ShieldProjectile";
+
+        var sp = proj.GetComponent<ShieldProjectile>();
+        sp.Init(transform, this);
+    }
+
+    public void OnShieldCaught()
+    {
+        shieldInFlight = false;
+        if (shieldMesh) shieldMesh.SetActive(true);
+        anim.SetTrigger("pickupShield");
     }
 
     public void OnBlock(InputAction.CallbackContext context)
     {
         if (context.started)
         {
+            if (shieldInFlight) return;
+
             isBlocking = true;
-            parryActive = true;
-            parryTimer = parryWindow;
             anim.SetBool("isBlocking", true);
         }
         if (context.canceled)
         {
             isBlocking = false;
-            parryActive = false;
             anim.SetBool("isBlocking", false);
         }
+    }
+
+    public void OnParry(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (shieldInFlight || shieldInFlight) return;
+
+        anim.SetTrigger("parry");
+        TriggerParry();
     }
 
     public bool TryBlock(GameObject attacker)
     {
         if (!isBlocking) return false;
-        if (parryActive) { TriggerParry(attacker); return true; }
         TriggerBlock();
         return true;
     }
 
-    void TriggerParry(GameObject attacker)
-    {
-        anim.SetTrigger("parry");
-        parryActive = false;
-        Debug.Log("PERFECT PARRY!");
-    }
-
+    void TriggerParry() { Debug.Log("PARRY!"); }
     void TriggerBlock() { Debug.Log("Blocked!"); }
     void DealMeleeDamage() { Debug.Log("Melee hit!"); }
     void TriggerSpecial() { Debug.Log("Special cast!"); }

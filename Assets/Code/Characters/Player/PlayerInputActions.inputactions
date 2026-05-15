@@ -61,6 +61,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "95c6426f-0063-4cbd-9c26-8c0610012d39",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "3e806114-6cdb-45ba-9f90-f17c562a978f",
@@ -250,7 +259,7 @@
                 {
                     "name": "",
                     "id": "fd4e058f-2c6a-4d88-9499-1872c2f62c0b",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -271,8 +280,8 @@
                 },
                 {
                     "name": "",
-                    "id": "d4db6a7c-091b-4100-a87b-2fcdf84b1e52",
-                    "path": "<Keyboard>/tab",
+                    "id": "6cf80f77-d94e-43fb-9cc4-92baadc18876",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -282,12 +291,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6cf80f77-d94e-43fb-9cc4-92baadc18876",
-                    "path": "<Gamepad>/start",
+                    "id": "37325d17-fd6e-414f-81b2-d155a048e674",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pause",
+                    "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66844827-fa8e-4002-9799-2fcc912ce16f",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

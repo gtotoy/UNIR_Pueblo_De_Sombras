@@ -3,31 +3,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacterController : MonoBehaviour
 {
-    private enum PlayerState { Idle, Moving, Dashing, Blocking, Paused }
+    private enum PlayerState { Idle, Moving, Dashing, Paused }
     private PlayerState currentState = PlayerState.Idle;
 
     [Header("Movement")]
     public float moveSpeed = 6f;
+    public float blockMoveSpeed = 2f;      // ? NEW: walk speed while blocking
     public float rotateSpeed = 12f;
     public float dashSpeed = 20f;
     public float dashDuration = 0.15f;
     public float dashCooldown = 0.8f;
 
-    [Header("Block / Parry")]
-    public float parryWindow = 0.2f;
-
     private Rigidbody rb;
     private Transform trans;
     private Animator anim;
+    private PlayerCombatController combat;  // ? NEW: reference to read isBlocking
+
     private Vector2 moveInput;
-    private bool isBlocking, isParrying;
-    private float dashTimer, dashCooldownTimer, parryTimer;
+    private float dashTimer, dashCooldownTimer;
+
+    private int combatLayerIndex;           // ? NEW: cached layer index
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         trans = GetComponent<Transform>();
+        combat = GetComponent<PlayerCombatController>();
+
+        combatLayerIndex = anim.GetLayerIndex("CombatLayer");
     }
 
     private bool IsPaused => currentState == PlayerState.Paused;
@@ -53,13 +57,15 @@ public class PlayerCharacterController : MonoBehaviour
         dashTimer = dashDuration;
         dashCooldownTimer = dashCooldown;
         rb.linearVelocity = trans.forward * dashSpeed;
+
+        // ?? Override upper body so block pose doesn't freeze during dash ??
+        anim.SetLayerWeight(combatLayerIndex, 0f);
         anim.SetTrigger("dash");
     }
 
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-
         if (IsPaused)
         {
             TransitionTo(moveInput.sqrMagnitude > 0.01f ? PlayerState.Moving : PlayerState.Idle);
@@ -75,7 +81,6 @@ public class PlayerCharacterController : MonoBehaviour
     void FixedUpdate()
     {
         if (IsPaused) return;
-
         HandleMovement();
         HandleTimers();
     }
@@ -84,11 +89,15 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (IsDashing) return;
 
+        // ?? Pick speed based on blocking state ??
+        bool blocking = combat != null && combat.IsBlocking;
+        float activeSpeed = blocking ? blockMoveSpeed : moveSpeed;
+
         Vector3 dir = new Vector3(moveInput.x, 0, moveInput.y);
         if (dir.sqrMagnitude > 0.01f)
         {
             dir = dir.normalized;
-            rb.linearVelocity = new Vector3(dir.x * moveSpeed, rb.linearVelocity.y, dir.z * moveSpeed);
+            rb.linearVelocity = new Vector3(dir.x * activeSpeed, rb.linearVelocity.y, dir.z * activeSpeed);
             Quaternion targetRot = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.fixedDeltaTime * rotateSpeed);
             TransitionTo(PlayerState.Moving);
@@ -108,15 +117,13 @@ public class PlayerCharacterController : MonoBehaviour
         {
             dashTimer -= Time.fixedDeltaTime;
             if (dashTimer <= 0)
+            {
+                // ?? Restore CombatLayer weight once dash ends ??
+                anim.SetLayerWeight(combatLayerIndex, 1f);
                 TransitionTo(PlayerState.Idle);
+            }
         }
 
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.fixedDeltaTime;
-
-        if (parryTimer > 0)
-        {
-            parryTimer -= Time.fixedDeltaTime;
-            if (parryTimer <= 0) isParrying = false;
-        }
     }
 }
