@@ -31,6 +31,8 @@ public class GameUIManager : MonoBehaviour
 
     void Pause(InputAction.CallbackContext obj)
     {
+        if (WaveManager.IsFinished) return;
+
         if (IsPaused) Resume();
         else
         {

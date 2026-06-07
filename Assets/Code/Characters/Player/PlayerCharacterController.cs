@@ -8,7 +8,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 6f;
-    public float blockMoveSpeed = 2f;      // ? NEW: walk speed while blocking
+    public float blockMoveSpeed = 2f;
     public float rotateSpeed = 12f;
     public float dashSpeed = 20f;
     public float dashDuration = 0.15f;
@@ -17,12 +17,12 @@ public class PlayerCharacterController : MonoBehaviour
     private Rigidbody rb;
     private Transform trans;
     private Animator anim;
-    private PlayerCombatController combat;  // ? NEW: reference to read isBlocking
+    private PlayerCombatController combat;
 
     private Vector2 moveInput;
     private float dashTimer, dashCooldownTimer;
 
-    private int combatLayerIndex;           // ? NEW: cached layer index
+    private int combatLayerIndex;
 
     void Awake()
     {
@@ -58,7 +58,6 @@ public class PlayerCharacterController : MonoBehaviour
         dashCooldownTimer = dashCooldown;
         rb.linearVelocity = trans.forward * dashSpeed;
 
-        // ?? Override upper body so block pose doesn't freeze during dash ??
         anim.SetLayerWeight(combatLayerIndex, 0f);
         anim.SetTrigger("dash");
     }
@@ -89,7 +88,6 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (IsDashing) return;
 
-        // ?? Pick speed based on blocking state ??
         bool blocking = combat != null && combat.IsBlocking;
         float activeSpeed = blocking ? blockMoveSpeed : moveSpeed;
 
@@ -118,7 +116,6 @@ public class PlayerCharacterController : MonoBehaviour
             dashTimer -= Time.fixedDeltaTime;
             if (dashTimer <= 0)
             {
-                // ?? Restore CombatLayer weight once dash ends ??
                 anim.SetLayerWeight(combatLayerIndex, 1f);
                 TransitionTo(PlayerState.Idle);
             }

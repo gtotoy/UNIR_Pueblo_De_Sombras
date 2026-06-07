@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 4601063000444286256}
   - component: {fileID: 292131868171918292}
   - component: {fileID: 8492151190064666080}
+  - component: {fileID: 7727731688654588981}
   m_Layer: 0
   m_Name: PlayerCharacterPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,10 +290,31 @@ MonoBehaviour:
   attackCooldown: 0.5
   specialCooldown: 2
   rangedCooldown: 1
+  meleeDamage: 20
+  meleeRadius: 1.5
+  meleeHitDelay: 0.2
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  specialDamage: 35
+  specialRadius: 4
   shieldProjectilePrefab: {fileID: 30750169398983273, guid: 9ce739006ab0d9a479709c174f70392b, type: 3}
   shieldThrowOrigin: {fileID: 2563347947091693281}
   shieldMesh: {fileID: 2853433765883641268}
   rangedDamage: 25
+--- !u!114 &7727731688654588981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7257528824292303065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54af52768730f47b16a263e1d201c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHP: 100
 --- !u!1001 &5463476973758020690
 PrefabInstance:
   m_ObjectHideFlags: 0

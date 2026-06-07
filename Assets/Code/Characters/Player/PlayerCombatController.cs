@@ -8,6 +8,16 @@ public class PlayerCombatController : MonoBehaviour
     public float specialCooldown = 4f;
     public float rangedCooldown = 2f;
 
+    [Header("Melee")]
+    public float meleeDamage = 20f;
+    public float meleeRadius = 1.5f;
+    public float meleeHitDelay = 0.2f;
+    public LayerMask enemyLayers;
+
+    [Header("Special")]
+    public float specialDamage = 35f;
+    public float specialRadius = 4f;
+
     [Header("Ranged / Shield")]
     public GameObject shieldProjectilePrefab;
     public Transform shieldThrowOrigin;
@@ -36,7 +46,7 @@ public class PlayerCombatController : MonoBehaviour
         if (!context.performed || atkTimer > 0) return;
         atkTimer = attackCooldown;
         anim.SetTrigger("normalAttack");
-        DealMeleeDamage();
+        Invoke(nameof(DealMeleeDamage), meleeHitDelay);
     }
 
     public void OnSpecialAttack(InputAction.CallbackContext context)
@@ -44,7 +54,7 @@ public class PlayerCombatController : MonoBehaviour
         if (!context.performed || spTimer > 0) return;
         spTimer = specialCooldown;
         anim.SetTrigger("specialAttack");
-        TriggerSpecial();
+        Invoke(nameof(DealSpecialDamage), 0.3f);
     }
 
     public void OnRanged(InputAction.CallbackContext context)
@@ -75,7 +85,7 @@ public class PlayerCombatController : MonoBehaviour
         proj.tag = "ShieldProjectile";
 
         var sp = proj.GetComponent<ShieldProjectile>();
-        sp.Init(transform, this);
+        sp.Init(transform, this, rangedDamage);
     }
 
     public void OnShieldCaught()
@@ -90,7 +100,6 @@ public class PlayerCombatController : MonoBehaviour
         if (context.started)
         {
             if (shieldInFlight) return;
-
             isBlocking = true;
             anim.SetBool("isBlocking", true);
         }
@@ -104,23 +113,27 @@ public class PlayerCombatController : MonoBehaviour
     public void OnParry(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-
-        if (shieldInFlight || shieldInFlight) return;
-
+        if (shieldInFlight) return;
         anim.SetTrigger("parry");
-        TriggerParry();
     }
 
     public bool TryBlock(GameObject attacker)
     {
-        if (!isBlocking) return false;
-        TriggerBlock();
-        return true;
+        return isBlocking;
     }
 
-    void TriggerParry() { Debug.Log("PARRY!"); }
-    void TriggerBlock() { Debug.Log("Blocked!"); }
-    void DealMeleeDamage() { Debug.Log("Melee hit!"); }
-    void TriggerSpecial() { Debug.Log("Special cast!"); }
-    void SpawnProjectile() { Debug.Log("Projectile fired!"); }
+    void DealMeleeDamage()
+    {
+        Vector3 hitCenter = transform.position + transform.forward * (meleeRadius * 0.5f);
+        Collider[] hits = Physics.OverlapSphere(hitCenter, meleeRadius, enemyLayers);
+        foreach (var hit in hits)
+            hit.GetComponent<Health>()?.TakeDamage(meleeDamage);
+    }
+
+    void DealSpecialDamage()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, specialRadius, enemyLayers);
+        foreach (var hit in hits)
+            hit.GetComponent<Health>()?.TakeDamage(specialDamage);
+    }
 }

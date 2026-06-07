@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ShieldProjectile : MonoBehaviour
 {
     [Header("Flight")]
@@ -7,39 +8,51 @@ public class ShieldProjectile : MonoBehaviour
     public float maxDistance = 14f;
     public float catchRadius = 0.8f;
     public LayerMask hitLayers;
+    public float spinSpeed = 720f;
 
+    private Rigidbody rb;
     private Transform owner;
     private Vector3 ownerForwardStart;
     private PlayerCombatController combat;
     private Vector3 startPos;
     private bool returning;
+    private float damage;
 
-    public float spinSpeed = 720f;
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+    }
 
-    public void Init(Transform ownerTransform, PlayerCombatController combatController)
+    public void Init(Transform ownerTransform, PlayerCombatController combatController, float projectileDamage)
     {
         owner = ownerTransform;
         ownerForwardStart = owner.forward;
         combat = combatController;
         startPos = transform.position;
+        damage = projectileDamage;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
         if (!returning)
         {
-            transform.position += ownerForwardStart * speed * Time.deltaTime;
+            Vector3 next = rb.position + ownerForwardStart * speed * Time.fixedDeltaTime;
+            rb.MovePosition(next);
 
-            if (Vector3.Distance(startPos, transform.position) >= maxDistance)
+            if (Vector3.Distance(startPos, rb.position) >= maxDistance)
                 StartReturn();
         }
         else
         {
-            Vector3 target = owner.position + Vector3.up * 1.2f;
-            Vector3 dir = target - transform.position;
+            if (owner == null) { Destroy(gameObject); return; }
 
-            transform.position += dir.normalized * speed * Time.deltaTime;
+            Vector3 target = owner.position + Vector3.up * 1.2f;
+            Vector3 dir = target - rb.position;
+
+            rb.MovePosition(rb.position + dir.normalized * speed * Time.fixedDeltaTime);
 
             if (dir.magnitude <= catchRadius)
                 Catch();
@@ -52,7 +65,10 @@ public class ShieldProjectile : MonoBehaviour
         if (other.transform == owner) return;
         if (other.CompareTag("ShieldProjectile")) return;
 
-        //TODO: Here I need to do damage later
+        if (hitLayers != 0 && (hitLayers.value & (1 << other.gameObject.layer)) == 0) return;
+
+        var h = other.GetComponent<Health>() ?? other.GetComponentInParent<Health>();
+        if (h != null) h.TakeDamage(damage);
 
         StartReturn();
     }
@@ -61,7 +77,7 @@ public class ShieldProjectile : MonoBehaviour
 
     void Catch()
     {
-        combat.OnShieldCaught();
+        combat?.OnShieldCaught();
         Destroy(gameObject);
     }
 }
