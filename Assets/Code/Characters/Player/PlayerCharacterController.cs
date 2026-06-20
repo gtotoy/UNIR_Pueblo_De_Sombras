@@ -14,9 +14,13 @@ public class PlayerCharacterController : MonoBehaviour
     public float dashDuration = 0.15f;
     public float dashCooldown = 0.8f;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip sfxDash;
+
     private Rigidbody rb;
     private Transform trans;
     private Animator anim;
+    private AudioSource audioSource;
     private PlayerCombatController combat;
 
     private Vector2 moveInput;
@@ -30,6 +34,9 @@ public class PlayerCharacterController : MonoBehaviour
         anim = GetComponent<Animator>();
         trans = GetComponent<Transform>();
         combat = GetComponent<PlayerCombatController>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
 
         combatLayerIndex = anim.GetLayerIndex("CombatLayer");
     }
@@ -60,6 +67,7 @@ public class PlayerCharacterController : MonoBehaviour
 
         anim.SetLayerWeight(combatLayerIndex, 0f);
         anim.SetTrigger("dash");
+        if (sfxDash != null) audioSource.PlayOneShot(sfxDash);
     }
 
     public void OnPause(InputAction.CallbackContext context)

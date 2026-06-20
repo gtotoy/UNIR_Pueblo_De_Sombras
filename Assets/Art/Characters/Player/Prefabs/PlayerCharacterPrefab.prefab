@@ -275,6 +275,7 @@ MonoBehaviour:
   dashSpeed: 20
   dashDuration: 0.15
   dashCooldown: 0.8
+  sfxDash: {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
 --- !u!114 &8492151190064666080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +303,13 @@ MonoBehaviour:
   shieldThrowOrigin: {fileID: 2563347947091693281}
   shieldMesh: {fileID: 2853433765883641268}
   rangedDamage: 25
+  parryWindow: 0.4
+  sfxMeleeHit: {fileID: 8300000, guid: a9fe83366307d414ea5aec26a348f3ea, type: 3}
+  sfxMeleeSwing: {fileID: 8300000, guid: d08c773f94f3afc4695531d74f341087, type: 3}
+  sfxBlock: {fileID: 8300000, guid: d3b11b80263d8a145ad7641f5e978ff4, type: 3}
+  sfxParry: {fileID: 8300000, guid: a9fe83366307d414ea5aec26a348f3ea, type: 3}
+  sfxShieldThrow: {fileID: 8300000, guid: d19fbf2ffc3058c47b2470da79cc5431, type: 3}
+  sfxShieldCatch: {fileID: 8300000, guid: c20a131ee400df544a6cafa00e56cca6, type: 3}
 --- !u!114 &7727731688654588981
 MonoBehaviour:
   m_ObjectHideFlags: 0

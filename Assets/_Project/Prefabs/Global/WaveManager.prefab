@@ -50,9 +50,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  enemiesInWave: 5
-  timeBetweenSpawns: 1.2
+  enemiesInWave: 15
+  timeBetweenSpawns: 0.625
   playerHealth: {fileID: 0}
   statusText: {fileID: 0}
   winPanel: {fileID: 0}
   losePanel: {fileID: 0}
+  spawnScatterRadius: 1.5
