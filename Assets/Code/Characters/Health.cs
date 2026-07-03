@@ -12,12 +12,13 @@ public class Health : MonoBehaviour
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
     public bool IsDead => currentHP <= 0f;
+    public bool IsInvulnerable { get; set; }
 
     void Awake() => currentHP = maxHP;
 
     public void TakeDamage(float amount)
     {
-        if (IsDead) return;
+        if (IsDead || IsInvulnerable) return;
         currentHP = Mathf.Max(0f, currentHP - amount);
         OnHealthChanged?.Invoke(currentHP, maxHP);
         if (currentHP <= 0f) OnDeath?.Invoke();

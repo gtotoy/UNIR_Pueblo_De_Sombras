@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,9 +23,13 @@ public class PlayerCharacterController : MonoBehaviour
     private Animator anim;
     private AudioSource audioSource;
     private PlayerCombatController combat;
+    private Health health;
+    private Collider col;
 
     private Vector2 moveInput;
     private float dashTimer, dashCooldownTimer;
+
+    private readonly List<Collider> ignoredEnemyColliders = new List<Collider>();
 
     private int combatLayerIndex;
 
@@ -34,6 +39,8 @@ public class PlayerCharacterController : MonoBehaviour
         anim = GetComponent<Animator>();
         trans = GetComponent<Transform>();
         combat = GetComponent<PlayerCombatController>();
+        health = GetComponent<Health>();
+        col = GetComponent<Collider>();
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -64,10 +71,36 @@ public class PlayerCharacterController : MonoBehaviour
         dashTimer = dashDuration;
         dashCooldownTimer = dashCooldown;
         rb.linearVelocity = trans.forward * dashSpeed;
+        if (health != null) health.IsInvulnerable = true;
+        SetEnemyCollisionsIgnored(true);
 
         anim.SetLayerWeight(combatLayerIndex, 0f);
         anim.SetTrigger("dash");
         if (sfxDash != null) audioSource.PlayOneShot(sfxDash);
+    }
+
+    void SetEnemyCollisionsIgnored(bool ignore)
+    {
+        if (col == null) return;
+
+        if (ignore)
+        {
+            foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+            {
+                Collider enemyCol = enemy.GetComponent<Collider>();
+                if (enemyCol == null) continue;
+                Physics.IgnoreCollision(col, enemyCol, true);
+                ignoredEnemyColliders.Add(enemyCol);
+            }
+        }
+        else
+        {
+            foreach (var enemyCol in ignoredEnemyColliders)
+            {
+                if (enemyCol != null) Physics.IgnoreCollision(col, enemyCol, false);
+            }
+            ignoredEnemyColliders.Clear();
+        }
     }
 
     public void OnPause(InputAction.CallbackContext context)
@@ -125,6 +158,8 @@ public class PlayerCharacterController : MonoBehaviour
             if (dashTimer <= 0)
             {
                 anim.SetLayerWeight(combatLayerIndex, 1f);
+                if (health != null) health.IsInvulnerable = false;
+                SetEnemyCollisionsIgnored(false);
                 TransitionTo(PlayerState.Idle);
             }
         }
