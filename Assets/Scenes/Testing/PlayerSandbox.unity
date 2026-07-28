@@ -850,6 +850,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   Autoplay: 1
+  Artifacts:
+  - {fileID: 11400000, guid: e1d9933e74b817a4b884135c017e705f, type: 2}
+  SelectedArtifactIndex: 0
   currentState: 0
 --- !u!114 &728424323
 MonoBehaviour:
