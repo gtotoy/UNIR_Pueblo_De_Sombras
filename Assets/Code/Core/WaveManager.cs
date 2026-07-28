@@ -8,6 +8,7 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance { get; private set; }
 
     [Header("Wave Config")]
+    public bool Autoplay = true;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] int enemiesInWave = 5;
@@ -41,6 +42,12 @@ public class WaveManager : MonoBehaviour
         if (playerHealth != null)
             playerHealth.OnDeath += OnPlayerDeath;
 
+        if (!Autoplay) { return; }
+        StartWave();
+    }
+
+    public void StartWave()
+    {
         SetStatus("Wave starting...");
         StartCoroutine(RunWave());
     }
