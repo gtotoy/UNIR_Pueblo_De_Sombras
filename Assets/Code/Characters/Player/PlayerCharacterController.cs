@@ -79,6 +79,16 @@ public class PlayerCharacterController : MonoBehaviour
         if (sfxDash != null) audioSource.PlayOneShot(sfxDash);
     }
 
+    public void OnPlaceArtifact(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        var gameController = FindFirstObjectByType<GameController>();
+        if (gameController)
+        {
+            gameController.TryPlaceArtifact(transform.position + 2.0f * transform.forward);
+        }
+    }
+
     void SetEnemyCollisionsIgnored(bool ignore)
     {
         if (col == null) return;

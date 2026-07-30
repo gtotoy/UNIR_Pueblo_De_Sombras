@@ -16,54 +16,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "e6f64074-e4df-4dd8-8808-f013171ce43e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SpecialAttack",
-                    "type": "Button",
-                    "id": "5332fd36-9a47-405f-bcd7-1fcae93140b0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RangedAttack",
-                    "type": "Button",
-                    "id": "11763824-cedc-4217-a6b8-4fe529133f79",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "ac369a91-fb49-491a-8e5c-19af211f064d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Block",
-                    "type": "Button",
-                    "id": "a8eca60e-275d-4317-9925-acccf6fd1e3a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Parry",
-                    "type": "Button",
-                    "id": "95c6426f-0063-4cbd-9c26-8c0610012d39",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -148,83 +103,6 @@
                 },
                 {
                     "name": "",
-                    "id": "43a800bc-f2ac-4d59-8d63-5f054511f2fa",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "df2a40bf-07bc-49cd-a5e2-f851f9e402d0",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ded6ebdc-bb16-4ab7-9338-03922b060653",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpecialAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8bdefba-4d6e-43a4-bc46-636b186017a1",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpecialAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "078c3069-e70c-4fda-bba2-d101cb1b5580",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RangedAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "75d55938-342b-4167-b896-3b95ac98a1f4",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RangedAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b16c95e3-1850-4e09-9057-69e139d8fac3",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RangedAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "67f5cea3-116f-46ba-8b00-af49513dc61e",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -242,28 +120,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "630a6b13-79f1-4628-91dd-64d3be83b463",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fd4e058f-2c6a-4d88-9499-1872c2f62c0b",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -288,10 +144,162 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Attack",
+            "id": "d3d49072-f4fc-4f84-83c3-9339617256a9",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "140fc91c-bfce-4039-ab39-bc69e7e405e8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpecialAttack",
+                    "type": "Button",
+                    "id": "8d3c1672-64ab-49e4-bfc3-7c000501ddcd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RangedAttack",
+                    "type": "Button",
+                    "id": "73dff337-382a-471c-b2cd-247fc22404b4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "26d5a52a-92fe-452b-a064-14d5267697f3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "6f00ed0e-8f99-49e0-bef0-82b07957fa05",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "631c145f-548f-464b-b96a-acc46f5dbe63",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "37325d17-fd6e-414f-81b2-d155a048e674",
+                    "id": "c4dd8bc4-8071-4228-be34-f0ee8f61d269",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "434a765c-d4fa-4112-85e0-7d92ffefcc4a",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "32910136-10c9-47fb-ae15-652076418488",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c0e77d3-9414-4a46-8b19-9a017783285f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "37097e61-90fd-4c64-9c35-ffbb1c2022c9",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e33c630-8423-46ff-8e50-e8c7586943fc",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5698e7e7-7cce-438d-bbd5-92a214d3a9b5",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec9e5cb1-5096-4273-b5e6-ccb86568c9fb",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fff36c6-9c1a-4e1a-9eb6-73f41df84c6d",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
@@ -302,7 +310,7 @@
                 },
                 {
                     "name": "",
-                    "id": "66844827-fa8e-4002-9799-2fcc912ce16f",
+                    "id": "550113da-6785-4f8a-8e74-d4a737ab634e",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
@@ -331,7 +339,7 @@
                 {
                     "name": "",
                     "id": "af62d349-cd14-401f-9a99-010b9eb391ce",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -341,7 +349,7 @@
                 },
                 {
                     "name": "",
-                    "id": "88753a19-4700-4116-9160-0ba6d07d94c1",
+                    "id": "e0dd62c7-29fb-44c2-8fbb-705a943faacd",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",

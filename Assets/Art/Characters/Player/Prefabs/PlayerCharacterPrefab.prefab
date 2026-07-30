@@ -154,54 +154,6 @@ MonoBehaviour:
     m_ActionName: 'Player/New action[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8492151190064666080}
-        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
-        m_MethodName: OnAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e6f64074-e4df-4dd8-8808-f013171ce43e
-    m_ActionName: 'Player/Attack[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8492151190064666080}
-        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
-        m_MethodName: OnSpecialAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5332fd36-9a47-405f-bcd7-1fcae93140b0
-    m_ActionName: 'Player/SpecialAttack[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth,/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8492151190064666080}
-        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
-        m_MethodName: OnRanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 11763824-cedc-4217-a6b8-4fe529133f79
-    m_ActionName: 'Player/RangedAttack[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/Mouse/middleButton,/Keyboard/r]'
-  - m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 292131868171918292}
         m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
         m_MethodName: OnDash
@@ -218,9 +170,9 @@ MonoBehaviour:
     m_ActionName: 'Player/Dash[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8492151190064666080}
-        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
-        m_MethodName: OnBlock
+      - m_Target: {fileID: 292131868171918292}
+        m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
+        m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -230,12 +182,56 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: a8eca60e-275d-4317-9925-acccf6fd1e3a
-    m_ActionName: 'Player/Block[/XInputControllerWindows/leftShoulder,/XInputControllerWindows1/leftShoulder,/Keyboard/shift]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 3e806114-6cdb-45ba-9f90-f17c562a978f
     m_ActionName: 'Player/Pause[/Keyboard/escape,/Keyboard/tab]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8492151190064666080}
+        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 140fc91c-bfce-4039-ab39-bc69e7e405e8
+    m_ActionName: 'Attack/Attack[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8492151190064666080}
+        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
+        m_MethodName: OnSpecialAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8d3c1672-64ab-49e4-bfc3-7c000501ddcd
+    m_ActionName: 'Attack/SpecialAttack[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8492151190064666080}
+        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
+        m_MethodName: OnRanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 73dff337-382a-471c-b2cd-247fc22404b4
+    m_ActionName: 'Attack/RangedAttack[/Mouse/middleButton,/Keyboard/r]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8492151190064666080}
@@ -250,8 +246,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 95c6426f-0063-4cbd-9c26-8c0610012d39
-    m_ActionName: 'Player/Parry[/Keyboard/tab]'
+    m_ActionId: 26d5a52a-92fe-452b-a064-14d5267697f3
+    m_ActionName: 'Attack/Block[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8492151190064666080}
+        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
+        m_MethodName: OnParry
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6f00ed0e-8f99-49e0-bef0-82b07957fa05
+    m_ActionName: 'Attack/Parry[/Keyboard/tab]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 292131868171918292}
+        m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
+        m_MethodName: OnPlaceArtifact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6d6cd3a4-5814-4a03-a9b6-a568f39db25a
+    m_ActionName: 'Preparation/Place[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -102,54 +102,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""e6f64074-e4df-4dd8-8808-f013171ce43e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SpecialAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""5332fd36-9a47-405f-bcd7-1fcae93140b0"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RangedAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""11763824-cedc-4217-a6b8-4fe529133f79"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""ac369a91-fb49-491a-8e5c-19af211f064d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Block"",
-                    ""type"": ""Button"",
-                    ""id"": ""a8eca60e-275d-4317-9925-acccf6fd1e3a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Parry"",
-                    ""type"": ""Button"",
-                    ""id"": ""95c6426f-0063-4cbd-9c26-8c0610012d39"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -234,83 +189,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""43a800bc-f2ac-4d59-8d63-5f054511f2fa"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""df2a40bf-07bc-49cd-a5e2-f851f9e402d0"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ded6ebdc-bb16-4ab7-9338-03922b060653"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpecialAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e8bdefba-4d6e-43a4-bc46-636b186017a1"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpecialAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""078c3069-e70c-4fda-bba2-d101cb1b5580"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RangedAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""75d55938-342b-4167-b896-3b95ac98a1f4"",
-                    ""path"": ""<Mouse>/middleButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RangedAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b16c95e3-1850-4e09-9057-69e139d8fac3"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RangedAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""67f5cea3-116f-46ba-8b00-af49513dc61e"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -328,28 +206,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""630a6b13-79f1-4628-91dd-64d3be83b463"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Block"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fd4e058f-2c6a-4d88-9499-1872c2f62c0b"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Block"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -374,10 +230,162 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Attack"",
+            ""id"": ""d3d49072-f4fc-4f84-83c3-9339617256a9"",
+            ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""140fc91c-bfce-4039-ab39-bc69e7e405e8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpecialAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d3c1672-64ab-49e4-bfc3-7c000501ddcd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RangedAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""73dff337-382a-471c-b2cd-247fc22404b4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""26d5a52a-92fe-452b-a064-14d5267697f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f00ed0e-8f99-49e0-bef0-82b07957fa05"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""631c145f-548f-464b-b96a-acc46f5dbe63"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""37325d17-fd6e-414f-81b2-d155a048e674"",
+                    ""id"": ""c4dd8bc4-8071-4228-be34-f0ee8f61d269"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""434a765c-d4fa-4112-85e0-7d92ffefcc4a"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32910136-10c9-47fb-ae15-652076418488"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c0e77d3-9414-4a46-8b19-9a017783285f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RangedAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37097e61-90fd-4c64-9c35-ffbb1c2022c9"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RangedAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e33c630-8423-46ff-8e50-e8c7586943fc"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RangedAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5698e7e7-7cce-438d-bbd5-92a214d3a9b5"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec9e5cb1-5096-4273-b5e6-ccb86568c9fb"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fff36c6-9c1a-4e1a-9eb6-73f41df84c6d"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -388,7 +396,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""66844827-fa8e-4002-9799-2fcc912ce16f"",
+                    ""id"": ""550113da-6785-4f8a-8e74-d4a737ab634e"",
                     ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -417,7 +425,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""af62d349-cd14-401f-9a99-010b9eb391ce"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -427,7 +435,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""88753a19-4700-4116-9160-0ba6d07d94c1"",
+                    ""id"": ""e0dd62c7-29fb-44c2-8fbb-705a943faacd"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -444,13 +452,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_SpecialAttack = m_Player.FindAction("SpecialAttack", throwIfNotFound: true);
-        m_Player_RangedAttack = m_Player.FindAction("RangedAttack", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
-        m_Player_Parry = m_Player.FindAction("Parry", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        // Attack
+        m_Attack = asset.FindActionMap("Attack", throwIfNotFound: true);
+        m_Attack_Attack = m_Attack.FindAction("Attack", throwIfNotFound: true);
+        m_Attack_SpecialAttack = m_Attack.FindAction("SpecialAttack", throwIfNotFound: true);
+        m_Attack_RangedAttack = m_Attack.FindAction("RangedAttack", throwIfNotFound: true);
+        m_Attack_Block = m_Attack.FindAction("Block", throwIfNotFound: true);
+        m_Attack_Parry = m_Attack.FindAction("Parry", throwIfNotFound: true);
         // Preparation
         m_Preparation = asset.FindActionMap("Preparation", throwIfNotFound: true);
         m_Preparation_Place = m_Preparation.FindAction("Place", throwIfNotFound: true);
@@ -459,6 +469,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ~@PlayerInputActions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputActions.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Attack.enabled, "This will cause a leak and performance issues, PlayerInputActions.Attack.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Preparation.enabled, "This will cause a leak and performance issues, PlayerInputActions.Preparation.Disable() has not been called.");
     }
 
@@ -536,12 +547,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_SpecialAttack;
-    private readonly InputAction m_Player_RangedAttack;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_Block;
-    private readonly InputAction m_Player_Parry;
     private readonly InputAction m_Player_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -559,29 +565,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Attack".
-        /// </summary>
-        public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/SpecialAttack".
-        /// </summary>
-        public InputAction @SpecialAttack => m_Wrapper.m_Player_SpecialAttack;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/RangedAttack".
-        /// </summary>
-        public InputAction @RangedAttack => m_Wrapper.m_Player_RangedAttack;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Dash".
         /// </summary>
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Block".
-        /// </summary>
-        public InputAction @Block => m_Wrapper.m_Player_Block;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Parry".
-        /// </summary>
-        public InputAction @Parry => m_Wrapper.m_Player_Parry;
         /// <summary>
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
@@ -615,24 +601,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
-            @SpecialAttack.started += instance.OnSpecialAttack;
-            @SpecialAttack.performed += instance.OnSpecialAttack;
-            @SpecialAttack.canceled += instance.OnSpecialAttack;
-            @RangedAttack.started += instance.OnRangedAttack;
-            @RangedAttack.performed += instance.OnRangedAttack;
-            @RangedAttack.canceled += instance.OnRangedAttack;
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
-            @Block.started += instance.OnBlock;
-            @Block.performed += instance.OnBlock;
-            @Block.canceled += instance.OnBlock;
-            @Parry.started += instance.OnParry;
-            @Parry.performed += instance.OnParry;
-            @Parry.canceled += instance.OnParry;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
@@ -650,24 +621,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
-            @SpecialAttack.started -= instance.OnSpecialAttack;
-            @SpecialAttack.performed -= instance.OnSpecialAttack;
-            @SpecialAttack.canceled -= instance.OnSpecialAttack;
-            @RangedAttack.started -= instance.OnRangedAttack;
-            @RangedAttack.performed -= instance.OnRangedAttack;
-            @RangedAttack.canceled -= instance.OnRangedAttack;
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
-            @Block.started -= instance.OnBlock;
-            @Block.performed -= instance.OnBlock;
-            @Block.canceled -= instance.OnBlock;
-            @Parry.started -= instance.OnParry;
-            @Parry.performed -= instance.OnParry;
-            @Parry.canceled -= instance.OnParry;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
@@ -704,6 +660,146 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Attack
+    private readonly InputActionMap m_Attack;
+    private List<IAttackActions> m_AttackActionsCallbackInterfaces = new List<IAttackActions>();
+    private readonly InputAction m_Attack_Attack;
+    private readonly InputAction m_Attack_SpecialAttack;
+    private readonly InputAction m_Attack_RangedAttack;
+    private readonly InputAction m_Attack_Block;
+    private readonly InputAction m_Attack_Parry;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Attack".
+    /// </summary>
+    public struct AttackActions
+    {
+        private @PlayerInputActions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public AttackActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Attack/Attack".
+        /// </summary>
+        public InputAction @Attack => m_Wrapper.m_Attack_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action "Attack/SpecialAttack".
+        /// </summary>
+        public InputAction @SpecialAttack => m_Wrapper.m_Attack_SpecialAttack;
+        /// <summary>
+        /// Provides access to the underlying input action "Attack/RangedAttack".
+        /// </summary>
+        public InputAction @RangedAttack => m_Wrapper.m_Attack_RangedAttack;
+        /// <summary>
+        /// Provides access to the underlying input action "Attack/Block".
+        /// </summary>
+        public InputAction @Block => m_Wrapper.m_Attack_Block;
+        /// <summary>
+        /// Provides access to the underlying input action "Attack/Parry".
+        /// </summary>
+        public InputAction @Parry => m_Wrapper.m_Attack_Parry;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Attack; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="AttackActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(AttackActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="AttackActions" />
+        public void AddCallbacks(IAttackActions instance)
+        {
+            if (instance == null || m_Wrapper.m_AttackActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_AttackActionsCallbackInterfaces.Add(instance);
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @SpecialAttack.started += instance.OnSpecialAttack;
+            @SpecialAttack.performed += instance.OnSpecialAttack;
+            @SpecialAttack.canceled += instance.OnSpecialAttack;
+            @RangedAttack.started += instance.OnRangedAttack;
+            @RangedAttack.performed += instance.OnRangedAttack;
+            @RangedAttack.canceled += instance.OnRangedAttack;
+            @Block.started += instance.OnBlock;
+            @Block.performed += instance.OnBlock;
+            @Block.canceled += instance.OnBlock;
+            @Parry.started += instance.OnParry;
+            @Parry.performed += instance.OnParry;
+            @Parry.canceled += instance.OnParry;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="AttackActions" />
+        private void UnregisterCallbacks(IAttackActions instance)
+        {
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @SpecialAttack.started -= instance.OnSpecialAttack;
+            @SpecialAttack.performed -= instance.OnSpecialAttack;
+            @SpecialAttack.canceled -= instance.OnSpecialAttack;
+            @RangedAttack.started -= instance.OnRangedAttack;
+            @RangedAttack.performed -= instance.OnRangedAttack;
+            @RangedAttack.canceled -= instance.OnRangedAttack;
+            @Block.started -= instance.OnBlock;
+            @Block.performed -= instance.OnBlock;
+            @Block.canceled -= instance.OnBlock;
+            @Parry.started -= instance.OnParry;
+            @Parry.performed -= instance.OnParry;
+            @Parry.canceled -= instance.OnParry;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="AttackActions.UnregisterCallbacks(IAttackActions)" />.
+        /// </summary>
+        /// <seealso cref="AttackActions.UnregisterCallbacks(IAttackActions)" />
+        public void RemoveCallbacks(IAttackActions instance)
+        {
+            if (m_Wrapper.m_AttackActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="AttackActions.AddCallbacks(IAttackActions)" />
+        /// <seealso cref="AttackActions.RemoveCallbacks(IAttackActions)" />
+        /// <seealso cref="AttackActions.UnregisterCallbacks(IAttackActions)" />
+        public void SetCallbacks(IAttackActions instance)
+        {
+            foreach (var item in m_Wrapper.m_AttackActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_AttackActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="AttackActions" /> instance referencing this action map.
+    /// </summary>
+    public AttackActions @Attack => new AttackActions(this);
 
     // Preparation
     private readonly InputActionMap m_Preparation;
@@ -815,6 +911,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Attack" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="AttackActions.AddCallbacks(IAttackActions)" />
+    /// <seealso cref="AttackActions.RemoveCallbacks(IAttackActions)" />
+    public interface IAttackActions
+    {
+        /// <summary>
         /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -836,13 +954,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRangedAttack(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDash(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Block" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -856,13 +967,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnParry(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Preparation" which allows adding and removing callbacks.

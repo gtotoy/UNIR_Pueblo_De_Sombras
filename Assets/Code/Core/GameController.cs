@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     {
         if (!Autoplay) { return; }
 
-        currentState = State.Preparation;
+        SetState(State.Preparation);
     }
 
     void Update()
@@ -32,6 +32,10 @@ public class GameController : MonoBehaviour
             case State.Preparation:
                 break;
             case State.Wave:
+                if (WaveManager.IsFinished)
+                {
+                    SetState(State.Preparation);
+                }
                 break;
         }
     }
@@ -42,29 +46,48 @@ public class GameController : MonoBehaviour
         currentState = newState;
         switch(currentState)
         {
+            case State.None:
+                break;
             case State.Preparation:
                 Debug.Log("Entering Preparation state.");
+                foreach (var artifact in Artifacts) {
+                    artifact.Reset();
+                }
+                {
+                    var playerController = FindFirstObjectByType<PlayerCharacterController>();
+                    var playerInput = playerController.GetComponent<PlayerInput>();
+                    playerInput.actions.FindActionMap("Preparation").Enable();
+                    playerInput.actions.FindActionMap("Attack").Disable();
+                }
                 break;
             case State.Wave:
                 Debug.Log("Entering Wave state.");
+                {
+                    var playerController = FindFirstObjectByType<PlayerCharacterController>();
+                    var playerInput = playerController.GetComponent<PlayerInput>();
+                    playerInput.actions.FindActionMap("Preparation").Disable();
+                    playerInput.actions.FindActionMap("Attack").Enable();
+                }
                 WaveManager.Instance.StartWave();
                 break;
             case State.Boss:
                 Debug.Log("Entering Boss state.");
+                {
+                    var playerController = FindFirstObjectByType<PlayerCharacterController>();
+                    var playerInput = playerController.GetComponent<PlayerInput>();
+                    playerInput.actions.FindActionMap("Preparation").Disable();
+                    playerInput.actions.FindActionMap("Attack").Enable();
+                }
                 break;
         }
     }
 
-    public void OnPlace(InputAction.CallbackContext context)
+    public void TryPlaceArtifact(Vector3 artifactPosition)
     {
-        if (!context.performed) return;
         if (currentState == State.Preparation)
         {
-            var playerController = FindFirstObjectByType<PlayerCharacterController>();
-            Debug.Assert(playerController != null, "PlayerCharacterController not found in the scene.");
             if (SelectedArtifactIndex < Artifacts.Length)
             {
-                var artifactPosition = playerController.transform.position + 2.0f * playerController.transform.forward;
                 var placed = Artifacts[SelectedArtifactIndex].PlaceArtifact(artifactPosition);
                 if (placed)
                 {

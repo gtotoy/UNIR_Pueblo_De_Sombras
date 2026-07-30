@@ -48,6 +48,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
+        IsFinished = false;
         SetStatus("Wave starting...");
         StartCoroutine(RunWave());
     }
