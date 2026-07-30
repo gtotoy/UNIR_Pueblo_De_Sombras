@@ -25,14 +25,14 @@ public class WaveManager : MonoBehaviour
     int enemiesAlive;
     bool finished;
 
-    public static bool IsFinished { get; private set; }
+    public bool IsFinished { get { return finished; } }
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
-        IsFinished = false;
+        finished = false;
         if (winPanel) winPanel.SetActive(false);
         if (losePanel) losePanel.SetActive(false);
     }
@@ -48,7 +48,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-        IsFinished = false;
+        finished = false;
         SetStatus("Wave starting...");
         StartCoroutine(RunWave());
     }
@@ -92,19 +92,18 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator WaveCleared()
     {
-        finished = true;
-        IsFinished = true;
         SetStatus("Wave cleared!");
         yield return new WaitForSeconds(1.5f);
-        if (winPanel) winPanel.SetActive(true);
-        Time.timeScale = 0f;
+        finished = true;
+        // TODO(gus): Move UI handling to GameController to work with GameUIManager and pause menu.
+        //if (winPanel) winPanel.SetActive(true);
+        //Time.timeScale = 0f;
     }
 
     void OnPlayerDeath()
     {
         if (finished) return;
         finished = true;
-        IsFinished = true;
         SetStatus("You died!");
         if (losePanel) losePanel.SetActive(true);
         Time.timeScale = 0f;

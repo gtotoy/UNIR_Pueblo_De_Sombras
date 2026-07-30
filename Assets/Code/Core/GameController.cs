@@ -8,6 +8,10 @@ public class GameController : MonoBehaviour
     [SerializeField] ArtifactDefinition[] Artifacts;
     [SerializeField] int SelectedArtifactIndex = 0;
 
+    [Header("Waves")]
+    [SerializeField] int TotalWaves = 3;
+    [SerializeField] int CurrentWave = 0;
+
     [SerializeField] State currentState;
 
     public enum State
@@ -32,9 +36,16 @@ public class GameController : MonoBehaviour
             case State.Preparation:
                 break;
             case State.Wave:
-                if (WaveManager.IsFinished)
+                if (WaveManager.Instance.IsFinished)
                 {
-                    SetState(State.Preparation);
+                    if (CurrentWave < TotalWaves)
+                    {
+                        SetState(State.Preparation);
+                    }
+                    else
+                    {
+                        SetState(State.Boss);
+                    }
                 }
                 break;
         }
@@ -69,6 +80,7 @@ public class GameController : MonoBehaviour
                     playerInput.actions.FindActionMap("Attack").Enable();
                 }
                 WaveManager.Instance.StartWave();
+                CurrentWave += 1;
                 break;
             case State.Boss:
                 Debug.Log("Entering Boss state.");
