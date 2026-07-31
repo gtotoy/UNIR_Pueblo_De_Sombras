@@ -89,6 +89,26 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
+    public void OnSelectArtifactLeft(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        var gameController = FindFirstObjectByType<GameController>();
+        if (gameController)
+        {
+            gameController.SelectNextArtifact(-1);
+        }
+    }
+
+    public void OnSelectArtifactRight(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        var gameController = FindFirstObjectByType<GameController>();
+        if (gameController)
+        {
+            gameController.SelectNextArtifact(1);
+        }
+    }
+
     void SetEnemyCollisionsIgnored(bool ignore)
     {
         if (col == null) return;

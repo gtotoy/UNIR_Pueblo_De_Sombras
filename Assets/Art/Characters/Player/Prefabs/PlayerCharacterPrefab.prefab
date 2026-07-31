@@ -280,6 +280,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6d6cd3a4-5814-4a03-a9b6-a568f39db25a
     m_ActionName: 'Preparation/Place[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 292131868171918292}
+        m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
+        m_MethodName: OnSelectArtifactRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f5aa9844-2cf2-4ba9-a7a5-fba7c28a2b67
+    m_ActionName: Preparation/SelectRight
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 292131868171918292}
+        m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
+        m_MethodName: OnSelectArtifactLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4e6c5ed3-0b05-4e7c-8c70-420c6fb236a2
+    m_ActionName: Preparation/SelectLeft
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

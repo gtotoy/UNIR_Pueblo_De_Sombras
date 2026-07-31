@@ -419,6 +419,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e6c5ed3-0b05-4e7c-8c70-420c6fb236a2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5aa9844-2cf2-4ba9-a7a5-fba7c28a2b67"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -443,6 +461,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Place"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f54684d-ea04-48d1-9386-fcc85a91657f"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87574c38-c261-4caf-9698-c9e68b5bb4b3"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -464,6 +504,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Preparation
         m_Preparation = asset.FindActionMap("Preparation", throwIfNotFound: true);
         m_Preparation_Place = m_Preparation.FindAction("Place", throwIfNotFound: true);
+        m_Preparation_SelectLeft = m_Preparation.FindAction("SelectLeft", throwIfNotFound: true);
+        m_Preparation_SelectRight = m_Preparation.FindAction("SelectRight", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -805,6 +847,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Preparation;
     private List<IPreparationActions> m_PreparationActionsCallbackInterfaces = new List<IPreparationActions>();
     private readonly InputAction m_Preparation_Place;
+    private readonly InputAction m_Preparation_SelectLeft;
+    private readonly InputAction m_Preparation_SelectRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "Preparation".
     /// </summary>
@@ -820,6 +864,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Preparation/Place".
         /// </summary>
         public InputAction @Place => m_Wrapper.m_Preparation_Place;
+        /// <summary>
+        /// Provides access to the underlying input action "Preparation/SelectLeft".
+        /// </summary>
+        public InputAction @SelectLeft => m_Wrapper.m_Preparation_SelectLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Preparation/SelectRight".
+        /// </summary>
+        public InputAction @SelectRight => m_Wrapper.m_Preparation_SelectRight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -849,6 +901,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Place.started += instance.OnPlace;
             @Place.performed += instance.OnPlace;
             @Place.canceled += instance.OnPlace;
+            @SelectLeft.started += instance.OnSelectLeft;
+            @SelectLeft.performed += instance.OnSelectLeft;
+            @SelectLeft.canceled += instance.OnSelectLeft;
+            @SelectRight.started += instance.OnSelectRight;
+            @SelectRight.performed += instance.OnSelectRight;
+            @SelectRight.canceled += instance.OnSelectRight;
         }
 
         /// <summary>
@@ -863,6 +921,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Place.started -= instance.OnPlace;
             @Place.performed -= instance.OnPlace;
             @Place.canceled -= instance.OnPlace;
+            @SelectLeft.started -= instance.OnSelectLeft;
+            @SelectLeft.performed -= instance.OnSelectLeft;
+            @SelectLeft.canceled -= instance.OnSelectLeft;
+            @SelectRight.started -= instance.OnSelectRight;
+            @SelectRight.performed -= instance.OnSelectRight;
+            @SelectRight.canceled -= instance.OnSelectRight;
         }
 
         /// <summary>
@@ -982,5 +1046,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPlace(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectRight(InputAction.CallbackContext context);
     }
 }

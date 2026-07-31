@@ -850,8 +850,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   Autoplay: 1
   Artifacts:
+  - {fileID: 11400000, guid: ceaa8b21a49a7124f95297c8897f8c93, type: 2}
   - {fileID: 11400000, guid: e1d9933e74b817a4b884135c017e705f, type: 2}
   SelectedArtifactIndex: 0
+  TotalWaves: 3
+  CurrentWave: 0
   currentState: 0
 --- !u!1 &929680211
 GameObject:

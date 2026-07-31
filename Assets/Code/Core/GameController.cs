@@ -122,4 +122,19 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
+    public void SelectNextArtifact(int step)
+    {
+        var index = SelectedArtifactIndex + step;
+        if (index < 0)
+        {
+            index = Artifacts.Length + index;
+        }
+        else if (index >= Artifacts.Length)
+        {
+            index = index - Artifacts.Length;
+        }
+        SelectedArtifactIndex = index;
+        Debug.Log($"Selected artifact: {Artifacts[SelectedArtifactIndex].name}");
+    }
 }
