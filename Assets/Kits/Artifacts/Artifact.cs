@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class Artifact : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float MultiplySpeed = 1f;
+
+    public void OnTriggerEnter(Collider other)
     {
-        
+        var enemy = other.GetComponent<EnemyController>();
+        if (enemy)
+        {
+            enemy.TryApplyArtifact(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnTriggerExit(Collider other)
     {
-        
+        var enemy = other.GetComponent<EnemyController>();
+        if (enemy)
+        {
+            enemy.TryRemoveArtifact(this);
+        }
     }
 }

@@ -233,6 +233,20 @@ public class EnemyController : MonoBehaviour
         Instantiate(healthPickupPrefab, dropPos, Quaternion.identity);
     }
 
+    public bool TryApplyArtifact(Artifact artifact)
+    {
+        if (artifact == null) return false;
+        agent.speed *= artifact.MultiplySpeed;
+        return false;
+    }
+
+    public bool TryRemoveArtifact(Artifact artifact)
+    {
+        if (artifact == null) return false;
+        agent.speed /= artifact.MultiplySpeed;
+        return false;
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

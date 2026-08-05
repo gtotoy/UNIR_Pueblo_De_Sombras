@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4820fa5e6772a64478804056ffe2c8c0, type: 3}
-  m_Name: SaltCircle
+  m_Name: Tower_Definition
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactDefinition
-  Prefab: {fileID: 5924517458110292976, guid: 5221b28223bc4e64bb9fe98f40662ec4, type: 3}
-  MaxCount: 2
-  IsRequired: 0
+  Prefab: {fileID: 6296409870109521383, guid: a07e14959b2a43d4c9808cebba8ed5c9, type: 3}
+  MaxCount: 1
+  IsRequired: 1
