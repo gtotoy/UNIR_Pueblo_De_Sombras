@@ -14,6 +14,7 @@ public class PlayerCharacterController : MonoBehaviour
     public float dashSpeed = 20f;
     public float dashDuration = 0.15f;
     public float dashCooldown = 0.8f;
+    public float runSpeedMultiplier = 1.6f;
 
     [Header("Audio")]
     [SerializeField] AudioClip sfxDash;
@@ -28,6 +29,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private Vector2 moveInput;
     private float dashTimer, dashCooldownTimer;
+    private bool dashHeld;
 
     private readonly List<Collider> ignoredEnemyColliders = new List<Collider>();
 
@@ -64,6 +66,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (context.started) dashHeld = true;
+        if (context.canceled) dashHeld = false;
+
         if (!context.performed) return;
         if (IsPaused || IsDashing || dashCooldownTimer > 0) return;
 
@@ -160,7 +165,8 @@ public class PlayerCharacterController : MonoBehaviour
         if (IsDashing) return;
 
         bool blocking = combat != null && combat.IsBlocking;
-        float activeSpeed = blocking ? blockMoveSpeed : moveSpeed;
+        bool running = dashHeld;
+        float activeSpeed = blocking ? blockMoveSpeed : (running ? moveSpeed * runSpeedMultiplier : moveSpeed);
 
         Vector3 dir = new Vector3(moveInput.x, 0, moveInput.y);
         if (dir.sqrMagnitude > 0.01f)
@@ -178,6 +184,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
 
         anim.SetFloat("speed", dir.magnitude);
+        anim.SetBool("isRunning", running);
     }
 
     void HandleTimers()

@@ -29,11 +29,6 @@ public class EnemyController : MonoBehaviour
     [Header("Stun")]
     [SerializeField] float stunDuration = 2f;
 
-    [Header("Drops")]
-    [SerializeField] GameObject healthPickupPrefab;
-    [Range(0f, 1f)]
-    [SerializeField] float healthDropChance = 0.3f;
-
     [Header("Audio")]
     [SerializeField] AudioClip sfxAttackHit;
     [SerializeField] AudioClip sfxAttackBlocked;
@@ -199,8 +194,6 @@ public class EnemyController : MonoBehaviour
         var col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
-        TryDropHealthPickup();
-
         WaveManager.Instance?.RegisterEnemyDeath();
         Destroy(gameObject, 3f);
     }
@@ -223,14 +216,6 @@ public class EnemyController : MonoBehaviour
             agent.SetDestination(hit.position);
 
         wanderTimer = Random.Range(wanderWaitMin, wanderWaitMax);
-    }
-
-    void TryDropHealthPickup()
-    {
-        if (healthPickupPrefab == null) return;
-        if (Random.value > healthDropChance) return;
-        Vector3 dropPos = transform.position + Vector3.up * 0.5f;
-        Instantiate(healthPickupPrefab, dropPos, Quaternion.identity);
     }
 
     public bool TryApplyArtifact(Artifact artifact)

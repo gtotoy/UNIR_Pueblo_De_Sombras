@@ -37,6 +37,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private Animator anim;
     private AudioSource audioSource;
+    private Health health;
     private bool isBlocking;
     private bool shieldInFlight;
     private float parryTimer;
@@ -50,9 +51,13 @@ public class PlayerCombatController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        health = GetComponent<Health>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
     }
+
+    // Call when this controller's owner lands a hit on an enemy, to regain any recoverable health.
+    public void NotifyHitLanded() => health?.RegainHealth();
 
     void Update()
     {
@@ -166,7 +171,11 @@ public class PlayerCombatController : MonoBehaviour
             hit.GetComponent<Health>()?.TakeDamage(meleeDamage);
             hitSomething = true;
         }
-        if (hitSomething) Play(sfxMeleeHit);
+        if (hitSomething)
+        {
+            Play(sfxMeleeHit);
+            NotifyHitLanded();
+        }
     }
 
     void DealSpecialDamage()
@@ -178,6 +187,10 @@ public class PlayerCombatController : MonoBehaviour
             hit.GetComponent<Health>()?.TakeDamage(specialDamage);
             hitSomething = true;
         }
-        if (hitSomething) Play(sfxMeleeHit);
+        if (hitSomething)
+        {
+            Play(sfxMeleeHit);
+            NotifyHitLanded();
+        }
     }
 }
