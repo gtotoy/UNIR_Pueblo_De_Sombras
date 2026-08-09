@@ -8,11 +8,16 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Health playerHealth;
     [SerializeField] Image healthBarFill;
     [SerializeField] TMP_Text healthText;
+    public Image artifactsParent;
+
+    private ArtifactPanelItem[] artifactItems;
 
     void OnEnable()
     {
         if (playerHealth == null) return;
         playerHealth.OnHealthChanged += UpdateHealthBar;
+
+        artifactItems = artifactsParent.GetComponentsInChildren<ArtifactPanelItem>();
     }
 
     void Start()
@@ -34,5 +39,30 @@ public class PlayerHUD : MonoBehaviour
 
         if (healthText != null)
             healthText.text = $"{Mathf.CeilToInt(current)} / {Mathf.CeilToInt(max)}";
+    }
+
+    public void UpdateArtifacts(ArtifactDefinition[] artifacts)
+    {
+        if (artifactItems == null || artifactItems.Length == 0) return;
+        for (int i = 0; i < artifactItems.Length; i++)
+        {
+            if (i < artifacts.Length && artifacts[i] != null)
+            {
+                artifactItems[i].SetArtifact(artifacts[i], true);
+            }
+            else
+            {
+                artifactItems[i].SetArtifact(null, false);
+            }
+        }
+    }
+
+    public void UpdateSelectedArtifact(int selectedIndex)
+    {
+        if (artifactItems == null || artifactItems.Length == 0) return;
+        for (int i = 0; i < artifactItems.Length; i++)
+        {
+            artifactItems[i].SetSelected(i == selectedIndex);
+        }
     }
 }

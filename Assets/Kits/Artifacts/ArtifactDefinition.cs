@@ -6,6 +6,7 @@ public class ArtifactDefinition : ScriptableObject
     public Artifact Prefab;
     public int MaxCount;
     public bool IsRequired;
+    public Sprite Image;
     private int Remaining;
 
     public void OnEnable()

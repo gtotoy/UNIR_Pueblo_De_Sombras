@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     [SerializeField] int CurrentWave = 0;
 
     [SerializeField] State currentState;
+    private GameUIManager gameUIManager;
 
     public enum State
     {
@@ -20,6 +21,15 @@ public class GameController : MonoBehaviour
         Preparation,
         Wave,
         Boss,
+    }
+
+    public void Awake()
+    {
+        gameUIManager = FindFirstObjectByType<GameUIManager>();
+        if (gameUIManager == null)
+        {
+            Debug.LogError($"{nameof(GameUIManager)} not found in the scene.");
+        }
     }
 
     public void Start()
@@ -70,9 +80,12 @@ public class GameController : MonoBehaviour
                     playerInput.actions.FindActionMap("Preparation").Enable();
                     playerInput.actions.FindActionMap("Attack").Disable();
                 }
+                gameUIManager.EnterPreparation(Artifacts);
+                gameUIManager.playerHUD.UpdateSelectedArtifact(SelectedArtifactIndex);
                 break;
             case State.Wave:
                 Debug.Log("Entering Wave state.");
+                gameUIManager.EnterWave();
                 {
                     var playerController = FindFirstObjectByType<PlayerCharacterController>();
                     var playerInput = playerController.GetComponent<PlayerInput>();
@@ -135,6 +148,7 @@ public class GameController : MonoBehaviour
             index = index - Artifacts.Length;
         }
         SelectedArtifactIndex = index;
+        gameUIManager.playerHUD.UpdateSelectedArtifact(SelectedArtifactIndex);
         Debug.Log($"Selected artifact: {Artifacts[SelectedArtifactIndex].name}");
     }
 }

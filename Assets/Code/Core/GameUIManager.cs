@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameUIManager : MonoBehaviour
 {
+    public PlayerHUD playerHUD;
     [SerializeField] InputActionReference pauseIARef;
 
     public static bool IsPaused = false;
@@ -57,5 +58,16 @@ public class GameUIManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void EnterPreparation(ArtifactDefinition[] artifacts)
+    {
+        playerHUD.artifactsParent.gameObject.SetActive(true);
+        playerHUD.UpdateArtifacts(artifacts);
+    }
+
+    public void EnterWave()
+    {
+        playerHUD.artifactsParent.gameObject.SetActive(false);
     }
 }

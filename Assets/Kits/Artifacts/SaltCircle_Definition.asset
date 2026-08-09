@@ -15,3 +15,4 @@ MonoBehaviour:
   Prefab: {fileID: 5924517458110292976, guid: 5221b28223bc4e64bb9fe98f40662ec4, type: 3}
   MaxCount: 2
   IsRequired: 0
+  Image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
