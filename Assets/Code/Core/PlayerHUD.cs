@@ -17,7 +17,7 @@ public class PlayerHUD : MonoBehaviour
         if (playerHealth == null) return;
         playerHealth.OnHealthChanged += UpdateHealthBar;
 
-        artifactItems = artifactsParent.GetComponentsInChildren<ArtifactPanelItem>();
+        artifactItems = artifactsParent.GetComponentsInChildren<ArtifactPanelItem>(true);
     }
 
     void Start()
@@ -48,11 +48,11 @@ public class PlayerHUD : MonoBehaviour
         {
             if (i < artifacts.Length && artifacts[i] != null)
             {
-                artifactItems[i].SetArtifact(artifacts[i], true);
+                artifactItems[i].SetArtifact(i, artifacts[i], true);
             }
             else
             {
-                artifactItems[i].SetArtifact(null, false);
+                artifactItems[i].SetArtifact(i, null, false);
             }
         }
     }

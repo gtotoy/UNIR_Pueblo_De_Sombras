@@ -116,6 +116,7 @@ public class GameController : MonoBehaviour
                 var placed = Artifacts[SelectedArtifactIndex].PlaceArtifact(artifactPosition);
                 if (placed)
                 {
+                    gameUIManager.playerHUD.UpdateArtifacts(Artifacts);
                     bool allRequiredArtifactsPlaced = false;
                     foreach (var artifact in Artifacts)
                     {
@@ -146,6 +147,16 @@ public class GameController : MonoBehaviour
         else if (index >= Artifacts.Length)
         {
             index = index - Artifacts.Length;
+        }
+        SelectArtifactAt(index);
+    }
+
+    public void SelectArtifactAt(int index)
+    {
+        if (index < 0 || index >= Artifacts.Length)
+        {
+            Debug.LogWarning($"Invalid artifact index: {index}");
+            return;
         }
         SelectedArtifactIndex = index;
         gameUIManager.playerHUD.UpdateSelectedArtifact(SelectedArtifactIndex);

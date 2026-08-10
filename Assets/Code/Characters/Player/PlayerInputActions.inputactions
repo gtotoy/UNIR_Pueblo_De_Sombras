@@ -368,7 +368,18 @@
                 {
                     "name": "",
                     "id": "e0dd62c7-29fb-44c2-8fbb-705a943faacd",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f5c7325-3a45-45c1-89b2-60878cffe6f4",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
