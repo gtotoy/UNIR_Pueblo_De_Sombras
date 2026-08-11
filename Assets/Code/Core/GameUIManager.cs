@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class GameUIManager : MonoBehaviour
     public static bool IsPaused = false;
 
     [SerializeField] GameObject pauseMenuUI;
+    [SerializeField] private Selectable pauseFirstSelected;
 
     private void OnEnable()
     {
@@ -21,6 +24,14 @@ public class GameUIManager : MonoBehaviour
     {
         pauseIARef.action.Disable();
         pauseIARef.action.performed -= Pause;
+    }
+
+    private void Update()
+    {
+        if (IsPaused && EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null)
+        {
+            SelectPauseFirstButton();
+        }
     }
 
     public void Resume()
@@ -40,8 +51,17 @@ public class GameUIManager : MonoBehaviour
             pauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
             IsPaused = true;
+            SelectPauseFirstButton();
         }
 
+    }
+
+    private void SelectPauseFirstButton()
+    {
+        if (pauseFirstSelected != null)
+        {
+            EventSystem.current.SetSelectedGameObject(pauseFirstSelected.gameObject);
+        }
     }
 
     public void LoadMenu()
