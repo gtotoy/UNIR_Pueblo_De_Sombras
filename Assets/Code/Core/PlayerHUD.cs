@@ -5,17 +5,24 @@ using TMPro;
 public class PlayerHUD : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] Health playerHealth;
     [SerializeField] Image healthBarFill;
     [SerializeField] TMP_Text healthText;
     public Image artifactsParent;
 
+    private Health playerHealth;
     private ArtifactPanelItem[] artifactItems;
 
     void OnEnable()
     {
-        if (playerHealth == null) return;
-        playerHealth.OnHealthChanged += UpdateHealthBar;
+        {
+            var playerController = FindFirstObjectByType<PlayerCharacterController>();
+            if (playerController)
+            {
+                playerHealth = playerController.GetComponent<Health>();
+                Debug.Assert(playerHealth, "Player's Health component not found.");
+                playerHealth.OnHealthChanged += UpdateHealthBar;
+            }
+        }
 
         artifactItems = artifactsParent.GetComponentsInChildren<ArtifactPanelItem>(true);
     }
