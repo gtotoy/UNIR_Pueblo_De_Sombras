@@ -186,6 +186,38 @@ MonoBehaviour:
     m_ActionName: 'Player/Pause[/Keyboard/escape,/Keyboard/tab]'
   - m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 292131868171918292}
+        m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
+        m_MethodName: OnLockOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0a6f6f3d-9a9c-4c85-8f2e-2f3e6f0d1a11
+    m_ActionName: 'Player/LockOn[/Gamepad/rightStickPress,/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 292131868171918292}
+        m_TargetAssemblyTypeName: PlayerCharacterController, Assembly-CSharp
+        m_MethodName: OnCycleTarget
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8b1d4e2c-5f7a-4a1e-9c3b-6d2a7e8f4b22
+    m_ActionName: 'Player/CycleTarget[/Gamepad/rightStick/x,/Keyboard/e,/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 8492151190064666080}
         m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
         m_MethodName: OnAttack
@@ -335,6 +367,11 @@ MonoBehaviour:
   dashSpeed: 20
   dashDuration: 0.15
   dashCooldown: 0.8
+  runSpeedMultiplier: 1.6
+  lockOnRange: 15
+  cycleTriggerThreshold: 0.6
+  cycleReleaseThreshold: 0.3
+  lockOnReticlePrefab: {fileID: 11455511100000012, guid: 58068e7632a24f2d960754cd39f756a9, type: 3}
   sfxDash: {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
 --- !u!114 &8492151190064666080
 MonoBehaviour:
@@ -383,6 +420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHP: 100
+  regainPercent: 0.5
+  regainWindow: 3
 --- !u!1001 &5463476973758020690
 PrefabInstance:
   m_ObjectHideFlags: 0

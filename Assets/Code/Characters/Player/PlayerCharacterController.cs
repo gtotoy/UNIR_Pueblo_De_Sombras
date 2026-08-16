@@ -16,6 +16,12 @@ public class PlayerCharacterController : MonoBehaviour
     public float dashCooldown = 0.8f;
     public float runSpeedMultiplier = 1.6f;
 
+    [Header("Lock-On")]
+    public float lockOnRange = 15f;
+    public float cycleTriggerThreshold = 0.6f;
+    public float cycleReleaseThreshold = 0.3f;
+    [SerializeField] LockOnReticle lockOnReticlePrefab;
+
     [Header("Audio")]
     [SerializeField] AudioClip sfxDash;
 
@@ -30,6 +36,14 @@ public class PlayerCharacterController : MonoBehaviour
     private Vector2 moveInput;
     private float dashTimer, dashCooldownTimer;
     private bool dashHeld;
+
+    private Transform lockedTarget;
+    private Vector2 cycleInput;
+    private bool cycleStickReleased = true;
+    private LockOnReticle activeReticle;
+
+    public bool IsLockedOn => lockedTarget != null;
+    public Transform LockedTarget => lockedTarget;
 
     private readonly List<Collider> ignoredEnemyColliders = new List<Collider>();
 
@@ -48,6 +62,12 @@ public class PlayerCharacterController : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
 
         combatLayerIndex = anim.GetLayerIndex("CombatLayer");
+
+        if (lockOnReticlePrefab != null)
+        {
+            activeReticle = Instantiate(lockOnReticlePrefab);
+            activeReticle.SetTarget(null);
+        }
     }
 
     private bool IsPaused => currentState == PlayerState.Paused;
@@ -153,9 +173,130 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
+    public void OnLockOn(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (IsPaused) return;
+
+        lockedTarget = lockedTarget != null ? null : FindClosestEnemy();
+        UpdateReticle();
+    }
+
+    public void OnCycleTarget(InputAction.CallbackContext context)
+    {
+        cycleInput = new Vector2(context.ReadValue<float>(), 0f);
+    }
+
+    Transform FindClosestEnemy()
+    {
+        Transform closest = null;
+        float closestDist = lockOnRange;
+        foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+        {
+            var enemyHealth = enemy.GetComponent<Health>();
+            if (enemyHealth != null && enemyHealth.IsDead) continue;
+
+            float dist = Vector3.Distance(trans.position, enemy.transform.position);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = enemy.transform;
+            }
+        }
+        return closest;
+    }
+
+    void HandleTargetCycle()
+    {
+        if (lockedTarget == null)
+        {
+            cycleStickReleased = true;
+            return;
+        }
+
+        if (Mathf.Abs(cycleInput.x) < cycleReleaseThreshold)
+        {
+            cycleStickReleased = true;
+            return;
+        }
+
+        if (!cycleStickReleased) return;
+        if (Mathf.Abs(cycleInput.x) < cycleTriggerThreshold) return;
+
+        CycleTarget(cycleInput.x > 0f ? 1 : -1);
+        UpdateReticle();
+        cycleStickReleased = false;
+    }
+
+    void CycleTarget(int direction)
+    {
+        var enemies = new List<Transform>();
+        foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+        {
+            var enemyHealth = enemy.GetComponent<Health>();
+            if (enemyHealth != null && enemyHealth.IsDead) continue;
+            if (Vector3.Distance(trans.position, enemy.transform.position) > lockOnRange) continue;
+            enemies.Add(enemy.transform);
+        }
+
+        if (enemies.Count == 0)
+        {
+            lockedTarget = null;
+            return;
+        }
+
+        enemies.Sort((a, b) => Vector3.Distance(trans.position, a.position).CompareTo(Vector3.Distance(trans.position, b.position)));
+
+        int currentIndex = enemies.IndexOf(lockedTarget);
+        if (currentIndex < 0)
+        {
+            lockedTarget = enemies[0];
+            return;
+        }
+
+        int nextIndex = (currentIndex + direction + enemies.Count) % enemies.Count;
+        lockedTarget = enemies[nextIndex];
+    }
+
+    void HandleLockOn()
+    {
+        if (lockedTarget == null) return;
+
+        var targetHealth = lockedTarget.GetComponent<Health>();
+        bool dead = targetHealth != null && targetHealth.IsDead;
+        float dist = Vector3.Distance(trans.position, lockedTarget.position);
+
+        if (dead || dist > lockOnRange)
+        {
+            lockedTarget = null;
+            UpdateReticle();
+        }
+    }
+
+    void UpdateReticle()
+    {
+        if (activeReticle != null) activeReticle.SetTarget(lockedTarget);
+    }
+
+    void FaceLockedTarget()
+    {
+        Vector3 lookDir = lockedTarget.position - trans.position;
+        lookDir.y = 0f;
+        if (lookDir.sqrMagnitude < 0.0001f) return;
+
+        Quaternion targetRot = Quaternion.LookRotation(lookDir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.fixedDeltaTime * rotateSpeed);
+    }
+
+    void Update()
+    {
+        HandleTargetCycle();
+    }
+
     void FixedUpdate()
     {
         if (IsPaused) return;
+        HandleLockOn();
         HandleMovement();
         HandleTimers();
     }
@@ -169,18 +310,26 @@ public class PlayerCharacterController : MonoBehaviour
         float activeSpeed = blocking ? blockMoveSpeed : (running ? moveSpeed * runSpeedMultiplier : moveSpeed);
 
         Vector3 dir = new Vector3(moveInput.x, 0, moveInput.y);
-        if (dir.sqrMagnitude > 0.01f)
+        bool hasMoveInput = dir.sqrMagnitude > 0.01f;
+
+        if (hasMoveInput)
         {
             dir = dir.normalized;
             rb.linearVelocity = new Vector3(dir.x * activeSpeed, rb.linearVelocity.y, dir.z * activeSpeed);
-            Quaternion targetRot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.fixedDeltaTime * rotateSpeed);
             TransitionTo(PlayerState.Moving);
         }
         else
         {
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             TransitionTo(PlayerState.Idle);
+        }
+
+        if (IsLockedOn)
+            FaceLockedTarget();
+        else if (hasMoveInput)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.fixedDeltaTime * rotateSpeed);
         }
 
         anim.SetFloat("speed", dir.magnitude);
