@@ -53,8 +53,7 @@ public class ArtifactPanelItem : MonoBehaviour
     private void OnArtifactButtonClicked()
     {
         var gameController = FindFirstObjectByType<GameController>();
-        if (gameController != null)
-        {
+        if (gameController) {
             gameController.SelectArtifactAt(artifactIndex);
         }
     }

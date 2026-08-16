@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,12 @@ public class GameController : MonoBehaviour
     [Header("Artifacts")]
     [SerializeField] ArtifactDefinition[] Artifacts;
     [SerializeField] int SelectedArtifactIndex = 0;
+    [Header("Blessings")]
+    [SerializeField] BlessingDefinition[] Blessings;
+    [SerializeField] int EquippedBlessingIndex = -1;
+
+    public BlessingDefinition[] GetBlessings() => Blessings;
+    public int GetEquippedBlessingIndex() => EquippedBlessingIndex;
 
     [Header("Waves")]
     [SerializeField] int TotalWaves = 3;
@@ -19,6 +26,7 @@ public class GameController : MonoBehaviour
     {
         None,
         Preparation,
+        BlessingSelection,
         Wave,
         Boss,
     }
@@ -83,9 +91,13 @@ public class GameController : MonoBehaviour
                 gameUIManager.EnterPreparation(Artifacts);
                 gameUIManager.playerHUD.UpdateSelectedArtifact(SelectedArtifactIndex);
                 break;
+            case State.BlessingSelection:
+                gameUIManager.playerHUD.artifactsParent.gameObject.SetActive(false);
+                gameUIManager.blessingsPanel.gameObject.SetActive(true);
+                break;
             case State.Wave:
                 Debug.Log("Entering Wave state.");
-                gameUIManager.EnterWave();
+                gameUIManager.blessingsPanel.gameObject.SetActive(false);
                 {
                     var playerController = FindFirstObjectByType<PlayerCharacterController>();
                     var playerInput = playerController.GetComponent<PlayerInput>();
@@ -109,57 +121,68 @@ public class GameController : MonoBehaviour
 
     public void TryPlaceArtifact(Vector3 artifactPosition)
     {
-        if (currentState == State.Preparation)
+        switch (currentState)
         {
-            if (SelectedArtifactIndex < Artifacts.Length)
-            {
-                var placed = Artifacts[SelectedArtifactIndex].PlaceArtifact(artifactPosition);
-                if (placed)
+            case State.Preparation:
+                if (SelectedArtifactIndex < Artifacts.Length)
                 {
-                    gameUIManager.playerHUD.UpdateArtifacts(Artifacts);
-                    bool allRequiredArtifactsPlaced = false;
-                    foreach (var artifact in Artifacts)
+                    var placed = Artifacts[SelectedArtifactIndex].PlaceArtifact(artifactPosition);
+                    if (placed)
                     {
-                        if (artifact.IsRequired && artifact.GetRemainingCount() > 0)
+                        gameUIManager.playerHUD.UpdateArtifacts(Artifacts);
+                        bool allRequiredArtifactsPlaced = false;
+                        foreach (var artifact in Artifacts)
                         {
-                            allRequiredArtifactsPlaced = false;
-                            break;
+                            if (artifact.IsRequired && artifact.GetRemainingCount() > 0)
+                            {
+                                allRequiredArtifactsPlaced = false;
+                                break;
+                            }
+                            allRequiredArtifactsPlaced = true;
                         }
-                        allRequiredArtifactsPlaced = true;
-                    }
 
-                    if (allRequiredArtifactsPlaced)
-                    {
-                        SetState(State.Wave);
+                        if (allRequiredArtifactsPlaced)
+                        {
+                            SetState(State.BlessingSelection);
+                        }
                     }
                 }
-            }
+                break;
+            case State.BlessingSelection:
+                EquipBlessingAt(gameUIManager.blessingsPanel.GetSelectedBlessingIndex());
+                break;
         }
     }
 
     public void SelectNextArtifact(int step)
     {
         var index = SelectedArtifactIndex + step;
-        if (index < 0)
-        {
-            index = Artifacts.Length + index;
-        }
-        else if (index >= Artifacts.Length)
-        {
-            index = index - Artifacts.Length;
-        }
         SelectArtifactAt(index);
     }
 
     public void SelectArtifactAt(int index)
     {
-        if (index < 0 || index >= Artifacts.Length)
-        {
-            Debug.LogWarning($"Invalid artifact index: {index}");
-            return;
+        if (index < 0) {
+            index = Artifacts.Length + index;
+        }
+        else if (index >= Artifacts.Length) {
+            index = index - Artifacts.Length;
         }
         SelectedArtifactIndex = index;
         gameUIManager.playerHUD.UpdateSelectedArtifact(SelectedArtifactIndex);
-        Debug.Log($"Selected artifact: {Artifacts[SelectedArtifactIndex].name}");
+        //Debug.Log($"Selected artifact: {Artifacts[SelectedArtifactIndex].name}");
+    }
+
+    public void EquipBlessingAt(int blessingIndex)
+    {
+        if (blessingIndex < 0 || blessingIndex >= Blessings.Length)
+        {
+            Debug.LogWarning($"Invalid blessing index: {blessingIndex}");
+        } else
+        {
+            Debug.Log($"Equipping blessing: {Blessings[blessingIndex].Title}");
+            EquippedBlessingIndex = blessingIndex;
+            SetState(State.Wave);
+        }
     }
 }

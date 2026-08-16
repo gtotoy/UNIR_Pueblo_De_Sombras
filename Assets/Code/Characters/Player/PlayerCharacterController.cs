@@ -108,8 +108,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (!context.performed) return;
         var gameController = FindFirstObjectByType<GameController>();
-        if (gameController)
-        {
+        if (gameController) {
             gameController.TryPlaceArtifact(transform.position + 2.0f * transform.forward);
         }
     }
@@ -118,9 +117,12 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (!context.performed) return;
         var gameController = FindFirstObjectByType<GameController>();
-        if (gameController)
-        {
+        if (gameController) {
             gameController.SelectNextArtifact(-1);
+        }
+        var gameUIManager = FindFirstObjectByType<GameUIManager>();
+        if (gameUIManager && gameUIManager.blessingsPanel.gameObject.activeSelf) {
+            gameUIManager.blessingsPanel.SelectNextBlessing(-1);
         }
     }
 
@@ -128,9 +130,12 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (!context.performed) return;
         var gameController = FindFirstObjectByType<GameController>();
-        if (gameController)
-        {
+        if (gameController) {
             gameController.SelectNextArtifact(1);
+        }
+        var gameUIManager = FindFirstObjectByType<GameUIManager>();
+        if (gameUIManager && gameUIManager.blessingsPanel.gameObject.activeSelf) {
+            gameUIManager.blessingsPanel.SelectNextBlessing(1);
         }
     }
 

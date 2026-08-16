@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
+    public static bool IsPaused = false;
+    
+    [Header("Player HUD")]
     public PlayerHUD playerHUD;
     [SerializeField] InputActionReference pauseIARef;
-
-    public static bool IsPaused = false;
-
+    [Header("Blessing Selection")]
+    public BlessingsPanel blessingsPanel;
+    [Header("Pause Menu")]
     [SerializeField] GameObject pauseMenuUI;
     [SerializeField] private Selectable pauseFirstSelected;
 
@@ -84,10 +87,5 @@ public class GameUIManager : MonoBehaviour
     {
         playerHUD.artifactsParent.gameObject.SetActive(true);
         playerHUD.UpdateArtifacts(artifacts);
-    }
-
-    public void EnterWave()
-    {
-        playerHUD.artifactsParent.gameObject.SetActive(false);
     }
 }
