@@ -182,6 +182,7 @@ public class GameController : MonoBehaviour
         {
             Debug.Log($"Equipping blessing: {Blessings[blessingIndex].Title}");
             EquippedBlessingIndex = blessingIndex;
+            gameUIManager.playerHUD.UpdateBlessing(Blessings[blessingIndex].Image);
             SetState(State.Wave);
         }
     }

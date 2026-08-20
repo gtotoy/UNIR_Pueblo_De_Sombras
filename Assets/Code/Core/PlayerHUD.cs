@@ -8,6 +8,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Image healthBarFill;
     [SerializeField] TMP_Text healthText;
     public Image artifactsParent;
+    [SerializeField] Image blessingImage;
 
     private Health playerHealth;
     private ArtifactPanelItem[] artifactItems;
@@ -70,6 +71,14 @@ public class PlayerHUD : MonoBehaviour
         for (int i = 0; i < artifactItems.Length; i++)
         {
             artifactItems[i].SetSelected(i == selectedIndex);
+        }
+    }
+
+    public void UpdateBlessing(Sprite blessingSprite)
+    {
+        if (blessingImage) {
+            blessingImage.sprite = blessingSprite;
+            blessingImage.enabled = blessingSprite != null;
         }
     }
 }
