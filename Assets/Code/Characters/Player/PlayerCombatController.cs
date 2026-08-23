@@ -58,6 +58,14 @@ public class PlayerCombatController : MonoBehaviour
 
     // Call when this controller's owner lands a hit on an enemy, to regain any recoverable health.
     public void NotifyHitLanded() => health?.RegainHealth();
+    public void NotifyParryLanded()
+    {
+        var gameController = FindFirstObjectByType<GameController>();
+        if (gameController != null) {
+            float percentage = gameController.GetParryHealthRecoveryPercentage();
+            health?.RegainHealth(percentage * health.MaxHP);
+        }
+    }
 
     void Update()
     {
@@ -153,6 +161,7 @@ public class PlayerCombatController : MonoBehaviour
         parryTimer = parryWindow;
         anim.SetTrigger("parry");
         Play(sfxParry);
+        NotifyParryLanded();
     }
 
     public bool TryBlock(GameObject attacker)

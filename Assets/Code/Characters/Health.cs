@@ -52,12 +52,21 @@ public class Health : MonoBehaviour
         currentHP = Mathf.Min(maxHP, currentHP + amount);
         OnHealthChanged?.Invoke(currentHP, maxHP);
     }
-    public void RegainHealth()
+    public void RegainHealth(float? healthAmount = null)
     {
-        if (recoverableHP <= 0f) return;
-        currentHP = Mathf.Min(maxHP, currentHP + recoverableHP);
-        ClearRecoverable();
-        OnHealthChanged?.Invoke(currentHP, maxHP);
+        if (healthAmount.HasValue)
+        {
+            if (healthAmount.Value <= 0f) return;
+            currentHP = Mathf.Min(maxHP, currentHP + healthAmount.Value);
+            OnHealthChanged?.Invoke(currentHP, maxHP);
+        }
+        else
+        {
+            if (recoverableHP <= 0f) return;
+            currentHP = Mathf.Min(maxHP, currentHP + recoverableHP);
+            ClearRecoverable();
+            OnHealthChanged?.Invoke(currentHP, maxHP);
+        }
     }
 
     void ClearRecoverable()

@@ -21,6 +21,11 @@ public class GameController : MonoBehaviour
 
     [SerializeField] State currentState;
     private GameUIManager gameUIManager;
+    private float parryHealthRecoveryPercentage = 1.0f;
+    private float artifactDurationMultiplier = 1.0f;
+
+    public float GetParryHealthRecoveryPercentage() => parryHealthRecoveryPercentage;
+    public float GetArtifactDurationMultiplier() => artifactDurationMultiplier;
 
     public enum State
     {
@@ -175,12 +180,16 @@ public class GameController : MonoBehaviour
 
     public void EquipBlessingAt(int blessingIndex)
     {
-        if (blessingIndex < 0 || blessingIndex >= Blessings.Length)
-        {
-            Debug.LogWarning($"Invalid blessing index: {blessingIndex}");
-        } else
+        if (blessingIndex < 0 || blessingIndex >= Blessings.Length) {
+            Debug.LogError($"Invalid blessing index: {blessingIndex}");
+            return;
+        }
+
+        if (blessingIndex != EquippedBlessingIndex)
         {
             Debug.Log($"Equipping blessing: {Blessings[blessingIndex].Title}");
+            parryHealthRecoveryPercentage = Blessings[blessingIndex].ParryHealthRecoveryPercentage;
+            artifactDurationMultiplier = Blessings[blessingIndex].ArtifactDurationMultiplier;
             EquippedBlessingIndex = blessingIndex;
             gameUIManager.playerHUD.UpdateBlessing(Blessings[blessingIndex].Image);
             SetState(State.Wave);
