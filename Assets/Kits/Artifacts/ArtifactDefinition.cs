@@ -7,6 +7,8 @@ public class ArtifactDefinition : ScriptableObject
     public int MaxCount;
     public bool IsRequired;
     public Sprite Image;
+    public Vector3 PlacementOffset;
+
     private int Remaining;
 
     public void OnEnable()
@@ -14,7 +16,7 @@ public class ArtifactDefinition : ScriptableObject
         Reset();
     }
 
-    public bool PlaceArtifact(Vector3 position)
+    public bool PlaceArtifact(Vector3 position, Vector3 forward, Vector3 up)
     {
         Debug.Assert(Prefab != null);
         if (Remaining <= 0)
@@ -22,7 +24,7 @@ public class ArtifactDefinition : ScriptableObject
             Debug.LogWarning($"No remaining artifacts of type {name} to place.");
             return false;
         }
-        Instantiate(Prefab, position, Quaternion.identity);
+        Instantiate(Prefab, position + PlacementOffset.z * forward + PlacementOffset.y * up, Quaternion.identity);
         Remaining -= 1;
         Debug.Log("Artifact placed!");
         return true;

@@ -119,14 +119,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void TryPlaceArtifact(Vector3 artifactPosition)
+    public void TryPlaceArtifact(Vector3 artifactPosition, Vector3 forward, Vector3 up)
     {
         switch (currentState)
         {
             case State.Preparation:
                 if (SelectedArtifactIndex < Artifacts.Length)
                 {
-                    var placed = Artifacts[SelectedArtifactIndex].PlaceArtifact(artifactPosition);
+                    var placed = Artifacts[SelectedArtifactIndex].PlaceArtifact(artifactPosition, forward, up);
                     if (placed)
                     {
                         gameUIManager.playerHUD.UpdateArtifacts(Artifacts);

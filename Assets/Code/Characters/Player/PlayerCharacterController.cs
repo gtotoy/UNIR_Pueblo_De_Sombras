@@ -109,7 +109,7 @@ public class PlayerCharacterController : MonoBehaviour
         if (!context.performed) return;
         var gameController = FindFirstObjectByType<GameController>();
         if (gameController) {
-            gameController.TryPlaceArtifact(transform.position + 2.0f * transform.forward);
+            gameController.TryPlaceArtifact(transform.position, transform.forward, transform.up);
         }
     }
 
