@@ -7,6 +7,8 @@ public class BlessingPanelItem : MonoBehaviour
     public Button blessingButton;
     public Image blessingImage;
     public TextMeshProUGUI blessingTitleText;
+    public Color DefaultColor = Color.white;
+    public Color SelectedColor = Color.yellow;
 
     private int blessingIndex;
 
@@ -50,11 +52,11 @@ public class BlessingPanelItem : MonoBehaviour
     {
         if (isSelected)
         {
-            blessingButton.image.color = Color.yellow; // Highlight color
+            blessingButton.image.color = SelectedColor;
         }
         else
         {
-            blessingButton.image.color = Color.white; // Default color
+            blessingButton.image.color = DefaultColor;
         }
     }
 }

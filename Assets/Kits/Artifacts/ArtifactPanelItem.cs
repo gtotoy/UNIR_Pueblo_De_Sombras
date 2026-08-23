@@ -8,6 +8,8 @@ public class ArtifactPanelItem : MonoBehaviour
     public Button artifactButton;
     public Image artifactImage;
     public TextMeshProUGUI artifactCountText;
+    public Color DefaultColor = Color.white;
+    public Color SelectedColor = Color.yellow;
 
     private int artifactIndex;
 
@@ -42,11 +44,11 @@ public class ArtifactPanelItem : MonoBehaviour
     {
         if (isSelected)
         {
-            artifactButton.image.color = Color.yellow; // Highlight color
+            artifactButton.image.color = SelectedColor;
         }
         else
         {
-            artifactButton.image.color = Color.white; // Default color
+            artifactButton.image.color = DefaultColor;
         }
     }
 
