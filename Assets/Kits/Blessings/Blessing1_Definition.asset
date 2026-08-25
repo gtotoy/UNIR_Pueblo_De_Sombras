@@ -15,3 +15,5 @@ MonoBehaviour:
   Image: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   Title: Maestria de Guacurari
   Description: Maestria de Guacurari
+  ParryHealthRecoveryPercentage: 0.05
+  ArtifactDurationMultiplier: 1

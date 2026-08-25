@@ -65,6 +65,13 @@ public class WaveManager : MonoBehaviour
             SpawnEnemy();
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
+
+        {
+            var gameController = FindFirstObjectByType<GameController>();
+            if (gameController) {
+                gameController.StartArtifactsLifetimes();
+            }
+        }
     }
 
     [SerializeField] float spawnScatterRadius = 1.5f;

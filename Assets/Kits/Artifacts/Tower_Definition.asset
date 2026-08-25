@@ -16,3 +16,4 @@ MonoBehaviour:
   MaxCount: 1
   IsRequired: 1
   Image: {fileID: 21300000, guid: 9eb1de7976745c2448d519ec0b7e481c, type: 3}
+  PlacementOffset: {x: 0, y: 3, z: 2}

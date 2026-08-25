@@ -15,3 +15,5 @@ MonoBehaviour:
   Image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   Title: Raiz de la Caa Yari
   Description: Raiz de la Caa Yari
+  ParryHealthRecoveryPercentage: 0
+  ArtifactDurationMultiplier: 1.5

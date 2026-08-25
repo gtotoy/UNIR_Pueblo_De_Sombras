@@ -195,4 +195,13 @@ public class GameController : MonoBehaviour
             SetState(State.Wave);
         }
     }
+
+    public void StartArtifactsLifetimes()
+    {
+        var artifacts = FindObjectsByType<Artifact>(FindObjectsSortMode.None);
+        foreach (var artifact in artifacts)
+        {
+            artifact.StartLifetime(artifactDurationMultiplier);
+        }
+    }
 }

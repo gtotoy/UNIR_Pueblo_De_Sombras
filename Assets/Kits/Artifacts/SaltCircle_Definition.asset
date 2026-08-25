@@ -16,3 +16,4 @@ MonoBehaviour:
   MaxCount: 2
   IsRequired: 0
   Image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  PlacementOffset: {x: 0, y: 0, z: 0}

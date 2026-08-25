@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class Artifact : MonoBehaviour
 {
+    public float LifetimeInSeconds = Mathf.Infinity;
     public float MultiplySpeed = 1f;
+
+    public void StartLifetime(float lifetimeMultiplier)
+    {
+        if (LifetimeInSeconds == Mathf.Infinity) return;
+        var lifetime = lifetimeMultiplier * LifetimeInSeconds;
+        Destroy(gameObject, lifetime);
+    }
 
     public void OnTriggerEnter(Collider other)
     {

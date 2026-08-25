@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e136aa5c914ae546a973cd5042e4700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Artifact
+  LifetimeInSeconds: 3
   MultiplySpeed: 0.5
 --- !u!54 &-325396514387817736
 Rigidbody:
