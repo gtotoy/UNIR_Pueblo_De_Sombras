@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -36,7 +37,7 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
     Animator anim;
     Health health;
-    Transform player;
+    Transform target;
     float attackTimer;
 
     void Awake()
@@ -49,8 +50,27 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        var playerObj = GameObject.FindWithTag("Player");
-        if (playerObj != null) player = playerObj.transform;
+        var roll = UnityEngine.Random.value;
+        if (roll < 0.5f)
+        {
+            var playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null) target = playerObj.transform;
+        }
+        else
+        { 
+            var artifacts = FindObjectsByType<Artifact>(FindObjectsSortMode.None);
+            var targetArtifacts = artifacts.Where(x => x.IsEnemyTarget).ToList();
+            if (targetArtifacts.Count > 0)
+            {
+                var randomArtifact = targetArtifacts[Random.Range(0, targetArtifacts.Count)];
+                target = randomArtifact.transform;
+            }
+            else
+            {
+                var playerObj = GameObject.FindWithTag("Player");
+                if (playerObj != null) target = playerObj.transform;
+            }
+        }        
     }
 
     void Update()
@@ -58,29 +78,28 @@ public class EnemyController : MonoBehaviour
         if (state == State.Dead || state == State.Stunned) return;
         if (attackTimer > 0f) attackTimer -= Time.deltaTime;
 
-        float dist = player != null
-            ? Vector3.Distance(transform.position, player.position)
-            : float.MaxValue;
+        var distance = GetDistanceToTarget();
 
         switch (state)
         {
             case State.Idle:
-                if (dist <= detectionRadius) { SetState(State.Chase); break; }
+                if (distance <= detectionRadius ) { SetState(State.Chase); break; }
+                if (target.GetComponent<Artifact>()) { SetState(State.Chase); break; }
                 HandleWander();
                 break;
 
             case State.Chase:
-                agent.SetDestination(player.position);
+                agent.SetDestination(target.position);
                 anim?.SetFloat("speed", agent.velocity.magnitude);
-                if (dist <= attackRange)
+                if (distance <= attackRange)
                     SetState(State.Attack);
                 break;
 
             case State.Attack:
                 agent.ResetPath();
                 anim?.SetFloat("speed", 0f);
-                FacePlayer();
-                if (dist > attackRange * 1.3f)
+                FaceTarget();
+                if (distance > attackRange * 1.3f)
                     SetState(State.Chase);
                 else if (attackTimer <= 0f)
                     PerformAttack();
@@ -100,10 +119,18 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void FacePlayer()
+    float GetDistanceToTarget()
     {
-        if (player == null) return;
-        Vector3 dir = player.position - transform.position;
+        if (!target) return float.MaxValue;
+        var displacement = target.position - transform.position;
+        displacement.y = 0f;
+        return displacement.magnitude;
+    }
+
+    void FaceTarget()
+    {
+        if (target == null) return;
+        Vector3 dir = target.position - transform.position;
         dir.y = 0f;
         if (dir.sqrMagnitude > 0.001f)
             transform.rotation = Quaternion.LookRotation(dir);
@@ -126,26 +153,29 @@ public class EnemyController : MonoBehaviour
 
     void TryDealDamage()
     {
-        if (state == State.Dead || player == null) return;
-        if (Vector3.Distance(transform.position, player.position) > attackRange * 1.3f) return;
+        if (state == State.Dead || !target) return;
+        if (GetDistanceToTarget() > attackRange * 1.3f) return;
 
-        var playerCombat = player.GetComponent<PlayerCombatController>();
-
-        // Parry: si el jugador está en ventana de parry, stunearse
-        if (playerCombat != null && playerCombat.IsParrying)
+        var playerCombat = target.GetComponent<PlayerCombatController>();
+        if (playerCombat)
         {
-            Stun();
-            return;
+
+            // Parry: si el jugador está en ventana de parry, stunearse
+            if (playerCombat.IsParrying)
+            {
+                Stun();
+                return;
+            }
+
+            // Block: si el jugador está bloqueando, no hacer daño
+            if (playerCombat.TryBlock(gameObject))
+            {
+                AudioSource.PlayClipAtPoint(sfxAttackBlocked, transform.position);
+                return;
+            }
         }
 
-        // Block: si el jugador está bloqueando, no hacer daño
-        if (playerCombat != null && playerCombat.TryBlock(gameObject))
-        {
-            AudioSource.PlayClipAtPoint(sfxAttackBlocked, transform.position);
-            return;
-        }
-
-        player.GetComponent<Health>()?.TakeDamage(attackDamage);
+        target.GetComponent<Health>()?.TakeDamage(attackDamage);
         AudioSource.PlayClipAtPoint(sfxAttackHit, transform.position);
     }
 

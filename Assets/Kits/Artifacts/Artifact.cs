@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Artifact : MonoBehaviour
 {
+    public bool IsEnemyTarget = false;
     public float LifetimeInSeconds = Mathf.Infinity;
     public float MultiplySpeed = 1f;
 

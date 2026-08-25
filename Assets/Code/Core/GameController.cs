@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -59,7 +60,14 @@ public class GameController : MonoBehaviour
             case State.Preparation:
                 break;
             case State.Wave:
-                if (WaveManager.Instance.IsFinished)
+                var artifacts = FindObjectsByType<Artifact>(FindObjectsSortMode.None);
+                var allTargetArtifactsDestroyed = artifacts.Where(x => x.GetComponent<Health>()).All(x => x.GetComponent<Health>().IsDead);
+                if (allTargetArtifactsDestroyed)
+                {
+                    // TODO(gus): Lose condition, player loses if all target artifacts are destroyed.
+                    Debug.Log("All target artifacts destroyed. Player loses.");
+                }
+                else if (WaveManager.Instance.IsFinished)
                 {
                     if (CurrentWave < TotalWaves)
                     {
