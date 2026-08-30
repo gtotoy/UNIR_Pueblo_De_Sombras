@@ -397,7 +397,7 @@ MonoBehaviour:
     m_Bits: 64
   specialDamage: 35
   specialRadius: 4
-  shieldProjectilePrefab: {fileID: 2781836429731621175}
+  shieldProjectilePrefab: {fileID: 30750169398983273, guid: 9ce739006ab0d9a479709c174f70392b, type: 3}
   shieldThrowOrigin: {fileID: 2490676386752961122}
   shieldMesh: {fileID: 2781836429731621175}
   rangedDamage: 25
