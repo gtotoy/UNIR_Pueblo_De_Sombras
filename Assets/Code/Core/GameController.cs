@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour
                 break;
             case State.Preparation:
                 Debug.Log("Entering Preparation state.");
+                gameUIManager.playerHUD.towerHealthBar.gameObject.SetActive(false);
                 foreach (var artifact in Artifacts) {
                     artifact.Reset();
                 }
@@ -111,6 +112,7 @@ public class GameController : MonoBehaviour
             case State.Wave:
                 Debug.Log("Entering Wave state.");
                 gameUIManager.blessingsPanel.gameObject.SetActive(false);
+                gameUIManager.playerHUD.towerHealthBar.gameObject.SetActive(true);
                 {
                     var playerController = FindFirstObjectByType<PlayerCharacterController>();
                     var playerInput = playerController.GetComponent<PlayerInput>();

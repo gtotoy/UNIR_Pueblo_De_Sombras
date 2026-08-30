@@ -9,6 +9,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] TMP_Text healthText;
     public Image artifactsParent;
     [SerializeField] Image blessingImage;
+    public TowerHealthBar towerHealthBar;
 
     private Health playerHealth;
     private ArtifactPanelItem[] artifactItems;
