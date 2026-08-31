@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ea1f2b35118a4429a01d54262d26f2, type: 3}
   m_Name: Blessing1_Definition
   m_EditorClassIdentifier: Assembly-CSharp::BlessingDefinition
-  Image: {fileID: 21300000, guid: 2e94e79569e3caabdb66ee5c9006ec8d, type: 3}
+  Image: {fileID: 21300000, guid: 92f4dc445dc4659aeb2a366365023df1, type: 3}
   Title: Maestria de Guacurari
   Description: Maestria de Guacurari
   ParryHealthRecoveryPercentage: 0.05
