@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Selectable firstSelected;
@@ -20,15 +21,25 @@ public class MainMenu : MonoBehaviour
     [Header("Controls Overlay")]
     [SerializeField] private GameObject controlSchemeRoot;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip buttonSelectSfx;
+    [SerializeField] private AudioClip buttonConfirmSfx;
+
     private InputAction continueAction;
     private Vector2 titleMenuAnchoredPosition;
     private bool menuShown;
     private bool controlsShown;
     private Coroutine pressStartRoutine;
     private Coroutine titleMoveRoutine;
+    private AudioSource audioSource;
+    private GameObject lastSelectedGameObject;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
+
         continueAction = new InputAction(type: InputActionType.Button);
         continueAction.AddBinding("<Keyboard>/enter");
         continueAction.AddBinding("<Gamepad>/buttonSouth");
@@ -64,9 +75,23 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if (menuShown && !controlsShown && EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null)
+        if (!menuShown || controlsShown || EventSystem.current == null)
+        {
+            return;
+        }
+
+        GameObject currentSelected = EventSystem.current.currentSelectedGameObject;
+
+        if (currentSelected == null)
         {
             SelectFirstButton();
+            return;
+        }
+
+        if (currentSelected != lastSelectedGameObject)
+        {
+            PlaySfx(buttonSelectSfx);
+            lastSelectedGameObject = currentSelected;
         }
     }
 
@@ -74,13 +99,23 @@ public class MainMenu : MonoBehaviour
     {
         if (!menuShown)
         {
+            PlaySfx(buttonConfirmSfx);
             ShowMenu();
             return;
         }
 
         if (controlsShown)
         {
+            PlaySfx(buttonConfirmSfx);
             HideControls();
+        }
+    }
+
+    private void PlaySfx(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            audioSource.PlayOneShot(clip);
         }
     }
 
@@ -146,16 +181,19 @@ public class MainMenu : MonoBehaviour
         if (firstSelected != null)
         {
             EventSystem.current.SetSelectedGameObject(firstSelected.gameObject);
+            lastSelectedGameObject = firstSelected.gameObject;
         }
     }
 
     public void StartGame()
     {
+        PlaySfx(buttonConfirmSfx);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ExitGame()
     {
+        PlaySfx(buttonConfirmSfx);
         Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -164,6 +202,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadCredits()
     {
+        PlaySfx(buttonConfirmSfx);
         SceneManager.LoadScene("Credits");
     }
 
@@ -171,6 +210,7 @@ public class MainMenu : MonoBehaviour
     {
         if (!menuShown || controlsShown) return;
 
+        PlaySfx(buttonConfirmSfx);
         controlsShown = true;
         controlSchemeRoot.SetActive(true);
         buttonsRoot.SetActive(false);
