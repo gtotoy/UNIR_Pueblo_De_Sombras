@@ -1,14 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BlessingPanelItem : MonoBehaviour
+public class BlessingPanelItem : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
     public Button blessingButton;
     public Image blessingImage;
     public TextMeshProUGUI blessingTitleText;
-    public Color DefaultColor = Color.white;
-    public Color SelectedColor = Color.yellow;
 
     private int blessingIndex;
 
@@ -22,14 +21,29 @@ public class BlessingPanelItem : MonoBehaviour
         blessingButton.onClick.RemoveListener(OnBlessingButtonClicked);
     }
 
+	public void OnSelect(BaseEventData eventData)
+	{
+   		var blessingsPanel = GetComponentInParent<BlessingsPanel>();
+
+    	if (blessingsPanel)
+        	blessingsPanel.OnBlessingButtonSelected(blessingIndex);
+	}
+
     private void OnBlessingButtonClicked()
     {
-        var gameController = FindFirstObjectByType<GameController>();
-        if (gameController)
-        {
-            gameController.EquipBlessingAt(blessingIndex);
-        }
+        var blessingsPanel = GetComponentInParent<BlessingsPanel>();
+
+		if (blessingsPanel)
+			blessingsPanel.SelectBlessingFromMouse(blessingIndex);
     }
+
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		var blessingsPanel = GetComponentInParent<BlessingsPanel>();
+
+		if (blessingsPanel)
+			blessingsPanel.SelectBlessingFromMouse(blessingIndex);
+	}
 
     public void SetBlessing(int index, BlessingDefinition blessing, bool isActive)
     {
@@ -45,18 +59,6 @@ public class BlessingPanelItem : MonoBehaviour
         else
         {
             blessingButton.gameObject.SetActive(false);
-        }
-    }
-
-    public void SetSelected(bool isSelected)
-    {
-        if (isSelected)
-        {
-            blessingButton.image.color = SelectedColor;
-        }
-        else
-        {
-            blessingButton.image.color = DefaultColor;
         }
     }
 }
