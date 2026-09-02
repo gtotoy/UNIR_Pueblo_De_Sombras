@@ -1,0 +1,428 @@
+# Pack de assets e integración visual - Pueblo de Sombras
+
+## Resumen ejecutivo
+
+Se incorporó y organizó un pack integral de ambientación para la escena principal **Fase0-Escenario**, desarrollado para **Unity 6.3 LTS con Universal Render Pipeline (URP)**.
+
+El contenido amplía el escenario con utilería urbana, vegetación, vehículos, campamentos, ruinas, elementos costeros, arquitectura modular, efectos visuales y sistemas atmosféricos. También se desarrollaron materiales, texturas, shaders e iluminación específicos para mantener una estética low-poly estilizada y coherente con el universo visual de *Pueblo de Sombras*.
+
+El pack reúne más de **109 tipos nominales de elementos ambientales**, además de **283 prefabs**, variantes modulares y recursos complementarios.
+
+## Alcance cuantitativo
+
+- 283 prefabs configurados.
+- 247 modelos 3D fuente:
+  - 209 archivos FBX.
+  - 38 archivos DAE.
+- 67 materiales de Unity.
+- 41 materiales específicos de Pueblo de Sombras.
+- 495 archivos gráficos entre PNG, JPG, JPEG y EXR.
+- 4 shaders personalizados para URP.
+- 3 controladores de efectos atmosféricos en tiempo de ejecución.
+- Más de 109 tipos de utilería, vehículos, vegetación, ruinas, campamentos y VFX.
+- 12 familias principales de texturas ambientales.
+- 3 escenas dentro del módulo Escenario.
+
+## Inventario de assets incorporados
+
+### Campamentos — 6 tipos
+
+- CampingTentShelter_01
+- DarkTentSanctuary_01
+- FantasyRuinsTent_01
+- FantasyRuinsTent_02
+- MedievalCamp_01
+- MedievalSiegeCamp_01
+
+### Entorno fantástico — 9 tipos
+
+- CristalesIrregulares_01
+- IslaCristal_01
+- IslaResplandeciente_01
+- PedestalPiedraAgrietada_01
+- PozoLavaAgrietado_01
+- RocasFantasiaPuntiagudas_01
+- RuinaCristalFantasia_01
+- SueloBaldosasAgrietadas_01
+- VallaPiedra_01
+
+### Ruinas y elementos ambientales — 18 tipos
+
+- ConstructionDebris_01
+- CrackedStonePlatform_01
+- Crater_01
+- CrystalRuin_01
+- CrystalRuinPlatform_01
+- FantasyCrystalIsland_01
+- FantasyCrystalIsland_02
+- FantasyRuin_01
+- FantasyRuin_02
+- FantasyRuin_03
+- FantasyRuinsPortal_01
+- GlowingCrystalCrater_01
+- MagicPortal_01
+- RuinedDebris_01
+- RuinedWall_01
+- RuinedWall_02
+- StoneDock_01
+- StoneRuinDebris_01
+
+### Props y utilería de ambientación — 20 tipos
+
+- BrokenBench_01
+- ConstructionBarricade_01
+- ConstructionSign_01
+- CrystalCluster_01
+- GarbageBags_01
+- GarbageDumpster_01
+- ImprovisedBarrier_01
+- LootPile_01
+- MysteriousLootPile_01
+- ParkBench_01
+- RitualCircle_01
+- RitualCircle_02
+- RoadBarrier_01
+- RuinedBench_01
+- RuinedFabricBarricade_01
+- StoneAltar_01
+- TentacleHandsCluster_01
+- TornFabricBarrier_01
+- WeatheredSignboard_01
+- WeatheredSpeedLimitSign_01
+
+### Utilería urbana y costera — 10 tipos
+
+- AccesorioJardinCristal_01
+- BancoMadera_01
+- Barandillas_01
+- BarandillaValla_01
+- BoyaAmarreOxidada_01
+- CartelDesgastado_01
+- Maceta_01
+- MandoRemoto_01
+- MandoRemoto_02
+- SenalVelocidadDesgastada_01
+
+### Vegetación — 23 tipos
+
+- ArbolBajoPoli_01
+- ArbolBajoPoli_02
+- ArbolEmbrujado_01
+- ArbolFantasiaPurpura_01
+- ArbustoVerde_01
+- BancalJardin_01
+- Palmera_01
+- PalmeraCristal_01
+- PlantaEstilizada_01
+- PlantaFantastica_01
+- FallenTree_01
+- FantasyTree_01
+- FantasyTree_02
+- GlowingPurplePlant_01
+- LowPolyPlant_01
+- LowPolyPlant_02
+- LowPolyTree_01
+- LowPolyTree_02
+- PinkBlossomTree_01
+- PurpleCrystalTree_01
+- PurpleCrystalTree_02
+- StylizedPineTree_01
+- StylizedTree_01
+
+### Vehículos — 21 tipos
+
+- Ambulance_01
+- Ambulance_02
+- BlueCar_01
+- BlueSedan_01
+- DamagedAmbulance_01
+- DamagedPickup_01
+- DarkRuinedCar_01
+- DemonicPoliceCar_01
+- FantasyCar_01
+- HauntedPurpleBus_01
+- MilitaryPickup_01
+- PickupTruck_01
+- PickupTruck_02
+- PoliceCar_01
+- PoliceCar_02
+- RustedCar_01
+- RustedCargoVan_01
+- StylizedVan_01
+- VintagePassengerBus_01
+- WreckedVan_01
+- BarcoMaderaPequeno_01
+
+### Efectos visuales — 2 tipos
+
+- SmokeVortex_01
+- SmokeVortex_02
+
+## Colecciones complementarias
+
+### BrokenVector — LowPolyTreePack
+
+- 38 prefabs.
+- Árboles low-poly.
+- Materiales, modelos y texturas propios.
+- Variantes preparadas para composición urbana y natural.
+
+### KnightFerret — Simple Modular Pillars
+
+- 143 prefabs modulares.
+- Columnas completas.
+- Piezas individuales.
+- Postes, remates y tapas.
+- Variantes compuestas.
+- Materiales compatibles con URP.
+
+### Low Poly Nature
+
+- 82 prefabs.
+- Arbustos.
+- Acantilados.
+- Flores.
+- Césped.
+- Hongos.
+- Guijarros.
+- Plantas.
+- Rocas.
+- Árboles pequeños.
+- Árboles de diferentes escalas.
+
+### SpaceZeta Street Lamps
+
+- 20 prefabs de iluminación urbana.
+- Farolas y luminarias de calle.
+- Mallas, materiales y variantes.
+- Integración con iluminación cálida ambiental.
+
+## Materiales y texturas desarrollados
+
+Se prepararon materiales coherentes con la dirección visual low-poly y con el pipeline URP:
+
+- Veredas de hormigón rosado-gris.
+- Asfalto desgastado.
+- Cordones de hormigón.
+- Muros de basalto con vegetación y musgo.
+- Piedra costera con humedad, moho y residuos.
+- Césped urbano.
+- Centros de manzana con cuatro variantes.
+- Tejas rojizas.
+- Revoque de viviendas.
+- Revoques atacados y deteriorados.
+- Madera pintada para viviendas portuarias.
+- Cinco variantes pastel para fachadas.
+- Cinco variantes de madera portuaria.
+- Cinco variantes de revoque portuario.
+- Cinco variantes de superficies atacadas.
+- Agua estilizada para el objeto AWA.
+- Materiales de partículas violetas y ceniza.
+- Material de relámpago.
+- Material de neblina baja.
+- Skybox apocalíptico panorámico.
+
+Las texturas fueron preparadas con mapas compatibles con URP, incluyendo combinaciones de:
+
+- Albedo o Base Color.
+- Normal Map.
+- Roughness y Smoothness.
+- Metallic compatible.
+- Variación superficial.
+- Desgaste, suciedad y humedad.
+
+También se corrigió la escala visual de los materiales para evitar patrones excesivamente pequeños en muros, calles, techos y veredas.
+
+## Fachadas y arquitectura
+
+Se analizaron:
+
+- 696 renderers de fachadas.
+- 239 grupos de viviendas.
+- 74 grupos con variantes pastel sutiles.
+- Viviendas conservadas en blanco y crema.
+- Variantes de madera inspiradas en las construcciones históricas del puerto.
+- Materiales diferenciados para viviendas atacadas.
+- Restauración de las torres principales a tonos neutros.
+
+La paleta incluye tonos:
+
+- Crema.
+- Arena.
+- Rosa empolvado.
+- Verde salvia.
+- Azul brumoso.
+- Turquesa suave.
+- Coral apagado.
+- Ocre desgastado.
+
+## Iluminación
+
+La iluminación fue adaptada para representar una ciudad bajo ataque, manteniendo legibilidad nocturna:
+
+- Iluminación urbana cálida mediante farolas.
+- Contraste entre luces amarillas y focos de corrupción violetas.
+- Luces azules, verdes y magenta para zonas afectadas.
+- 36 fuentes violetas utilizadas como referencia atmosférica.
+- 18 luces violetas con variación dinámica de intensidad.
+- Luz direccional global fría y de baja intensidad.
+- Destello global asociado a tormentas.
+- Integración de bloom moderado para unificar fuentes emisivas.
+
+## Atmósfera y efectos ambientales
+
+Se incorporaron los siguientes sistemas:
+
+- Skybox apocalíptico panorámico.
+- Silueta de Encarnación integrada directamente en el horizonte del skybox.
+- Niebla global en modo Exponential Squared.
+- Nueve capas de neblina baja.
+- Cuatro sistemas de ceniza ambiental.
+- 36 sistemas de partículas vinculados a luces de corrupción.
+- Motas violetas flotantes.
+- Relámpagos visibles.
+- Posibilidad de doble destello.
+- Primer relámpago entre 2,5 y 5 segundos.
+- Intervalos posteriores de entre 8 y 18 segundos.
+- Movimiento irregular y titileo de luces corruptas.
+
+## Agua y borde costero
+
+El objeto AWA utiliza un shader de agua estilizada con:
+
+- Ondas animadas.
+- Normal Map.
+- Reflejos suaves.
+- Fresnel.
+- Variación entre zonas profundas y superficiales.
+- Opacidad controlada.
+- Escala de ondas ajustada a 3,6.
+- Integración cromática con el cielo y la niebla.
+
+El borde costero incorpora:
+
+- Piedra húmeda.
+- Basalto.
+- Musgo.
+- Suciedad.
+- Restos visuales de basura.
+- Vegetación costera.
+- Barandillas.
+- Boyas.
+- Bancos.
+- Elementos de deterioro.
+
+## Filtro visual
+
+Se incorporó un volumen global de postprocesado denominado:
+
+`Atmosfera_Filtro_Retro`
+
+Incluye:
+
+- Grano fino con intensidad 0,14.
+- Viñeta suave con intensidad 0,16.
+- Saturación en -9.
+- Contraste en +6.
+- Aberración cromática mínima.
+- Balance de blancos sutil.
+- Bloom moderado.
+- Dithering para reducir bandas de color.
+
+El efecto puede regularse desde la propiedad `Weight` del componente Volume.
+
+## Shaders personalizados
+
+- PuebloSombras_StylizedWater.
+- PuebloSombras_AirParticles.
+- PuebloSombras_GroundFog.
+- PuebloSombras_LightningBolt.
+
+## Organización del contenido
+
+La estructura principal quedó organizada en:
+
+- `Assets/Escenario/Materials`
+- `Assets/Escenario/Props`
+- `Assets/Escenario/Scenes`
+- `Assets/Escenario/Scripts`
+- `Assets/Escenario/Settings`
+- `Assets/Escenario/Shaders`
+
+Los props se subdividen en:
+
+- Camps
+- Environment
+- Entorno
+- Props
+- Utileria
+- Vegetacion
+- Vegetation
+- Vehicles
+- Vehiculos
+- VFX
+
+## Recomendaciones de rendimiento
+
+Antes de generar una versión definitiva se recomienda:
+
+- Configurar el plano lejano de la cámara entre 400 y 500 unidades.
+- Desactivar sombras en luces decorativas violetas.
+- Reservar sombras para luces principales.
+- Usar Direct3D11 en el editor si Direct3D12 presenta inestabilidad.
+- Aplicar LOD a árboles, vehículos y arquitectura distante.
+- Utilizar Occlusion Culling en sectores urbanos.
+- Revisar el atlas de sombras de luces adicionales.
+- Comprimir texturas según la plataforma de destino.
+- Mantener las partículas ambientales dentro de límites visibles.
+- Evaluar Static Batching para elementos inmóviles.
+
+## Incorporación al repositorio
+
+Se deben incluir:
+
+- `Assets/Escenario`
+- Todos los archivos `.meta`
+- `Packages`
+- `ProjectSettings`
+
+No se deben incluir:
+
+- `Library`
+- `Temp`
+- `Logs`
+- `Obj`
+- `UserSettings`
+- Carpetas de crash o recuperación temporal
+
+Para archivos pesados se recomienda utilizar Git LFS, especialmente para:
+
+- FBX
+- DAE
+- PNG
+- JPG y JPEG
+- EXR
+- Unitypackage
+
+## Créditos y licencias
+
+El proyecto incorpora recursos provenientes de las siguientes colecciones:
+
+- BrokenVector LowPolyTreePack.
+- KnightFerret Simple Modular Pillars.
+- Low Poly Nature.
+- SpaceZeta Street Lamps.
+- SpaceZeta Street Lamps 2.
+
+Las licencias y archivos originales de cada proveedor deben conservarse y verificarse antes de redistribuir el contenido fuera del repositorio autorizado.
+
+## Estado
+
+El pack se encuentra integrado en la escena principal y preparado para continuar con:
+
+- Optimización.
+- Distribución final de props.
+- Ajuste de LOD.
+- Configuración de sombras.
+- Pruebas de rendimiento.
+- Preparación del build.
