@@ -64,8 +64,7 @@ public class GameController : MonoBehaviour
                 var allTargetArtifactsDestroyed = artifacts.Where(x => x.GetComponent<Health>()).All(x => x.GetComponent<Health>().IsDead);
                 if (allTargetArtifactsDestroyed)
                 {
-                    // TODO(gus): Lose condition, player loses if all target artifacts are destroyed.
-                    Debug.Log("All target artifacts destroyed. Player loses.");
+                    WaveManager.Instance.TriggerGameLoss("The tower was destroyed!");
                 }
                 else if (WaveManager.Instance.IsFinished)
                 {

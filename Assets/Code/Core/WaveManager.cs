@@ -109,9 +109,14 @@ public class WaveManager : MonoBehaviour
 
     void OnPlayerDeath()
     {
+        TriggerGameLoss("You died!");
+    }
+
+    public void TriggerGameLoss(string message)
+    {
         if (finished) return;
         finished = true;
-        SetStatus("You died!");
+        SetStatus(message);
         if (losePanel) losePanel.SetActive(true);
         Time.timeScale = 0f;
     }
