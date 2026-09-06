@@ -108,8 +108,19 @@
     "m_ActiveTargets": [
         {
             "m_Id": "bfab8dc2f36849a8b253b5352be41b3d"
+        },
+        {
+            "m_Id": "3c966afb976245218928ecf0281d0b1a"
         }
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInLitSubTarget",
+    "m_ObjectId": "0f073eaab8b844909c4b6238476e1052",
+    "m_WorkflowMode": 1,
+    "m_NormalDropOffSpace": 0
 }
 
 {
@@ -142,6 +153,16 @@
     "m_DefaultValue": 0.0,
     "m_Labels": [],
     "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 2,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalLitSubTarget",
+    "m_ObjectId": "2a2f88152c5343b99c1c73d4438d6f0d",
+    "m_WorkflowMode": 1,
+    "m_NormalDropOffSpace": 0,
+    "m_ClearCoat": false,
+    "m_BlendModePreserveSpecular": true
 }
 
 {
@@ -192,6 +213,32 @@
     "m_DefaultValue": 0.5,
     "m_Labels": [],
     "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
+    "m_ObjectId": "3c966afb976245218928ecf0281d0b1a",
+    "m_Datas": [],
+    "m_ActiveSubTarget": {
+        "m_Id": "2a2f88152c5343b99c1c73d4438d6f0d"
+    },
+    "m_AllowMaterialOverride": false,
+    "m_SurfaceType": 1,
+    "m_ZTestMode": 4,
+    "m_ZWriteControl": 0,
+    "m_AlphaMode": 0,
+    "m_RenderFace": 2,
+    "m_AlphaClip": false,
+    "m_CastShadows": true,
+    "m_ReceiveShadows": true,
+    "m_DisableTint": false,
+    "m_Sort3DAs2DCompatible": false,
+    "m_AdditionalMotionVectorMode": 0,
+    "m_AlembicMotionVectors": false,
+    "m_SupportsLODCrossFade": false,
+    "m_CustomEditorGUI": "",
+    "m_SupportVFX": false
 }
 
 {
@@ -412,14 +459,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInLitSubTarget",
-    "m_ObjectId": "b386d66d8ffe44ac9973a2fafd2b084c",
-    "m_WorkflowMode": 1,
-    "m_NormalDropOffSpace": 0
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.ColorRGBMaterialSlot",
     "m_ObjectId": "b6b5dcf5c9434bfa9b9a639fcfbb9617",
     "m_Id": 0,
@@ -470,7 +509,7 @@
     "m_ObjectId": "bfab8dc2f36849a8b253b5352be41b3d",
     "m_Datas": [],
     "m_ActiveSubTarget": {
-        "m_Id": "b386d66d8ffe44ac9973a2fafd2b084c"
+        "m_Id": "0f073eaab8b844909c4b6238476e1052"
     },
     "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
