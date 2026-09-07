@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Health))]
 public class EnemyController : MonoBehaviour
 {
-    enum State { Idle, Chase, Attack, Stunned, Dead }
+    enum State { Idle, Chase, Attack, Stunned, Knockback, Dead }
     State state = State.Idle;
 
     [Header("Detection")]
@@ -29,6 +29,9 @@ public class EnemyController : MonoBehaviour
 
     [Header("Stun")]
     [SerializeField] float stunDuration = 2f;
+
+    [Header("Knockback")]
+    [SerializeField] float knockbackDuration = 0.2f;
 
     [Header("Audio")]
     [SerializeField] AudioClip sfxAttackHit;
@@ -75,7 +78,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (state == State.Dead || state == State.Stunned) return;
+        if (state == State.Dead || state == State.Stunned || state == State.Knockback) return;
         if (attackTimer > 0f) attackTimer -= Time.deltaTime;
 
         var distance = GetDistanceToTarget();
@@ -203,6 +206,50 @@ public class EnemyController : MonoBehaviour
         if (state == State.Dead) yield break;
 
         anim?.SetBool("isStunned", false);
+        attackTimer = attackCooldown;
+        SetState(State.Chase);
+    }
+
+    public void ApplyKnockback(Vector3 sourcePosition, float force)
+    {
+        if (state == State.Dead) return;
+
+        Vector3 direction = transform.position - sourcePosition;
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.001f) direction = -transform.forward;
+        direction.Normalize();
+
+        CancelInvoke(nameof(TryDealDamage));
+        StopAllCoroutines();
+        StartCoroutine(KnockbackRoutine(direction, force));
+    }
+
+    IEnumerator KnockbackRoutine(Vector3 direction, float force)
+    {
+        SetState(State.Knockback);
+        agent.ResetPath();
+        agent.enabled = false;
+        anim?.SetFloat("speed", 0f);
+
+        Vector3 start = transform.position;
+        Vector3 targetPos = start + direction * force;
+        if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, force, NavMesh.AllAreas))
+            targetPos = hit.position;
+        else
+            targetPos = start;
+
+        float elapsed = 0f;
+        while (elapsed < knockbackDuration)
+        {
+            elapsed += Time.deltaTime;
+            transform.position = Vector3.Lerp(start, targetPos, elapsed / knockbackDuration);
+            yield return null;
+        }
+
+        if (state == State.Dead) yield break;
+
+        agent.enabled = true;
+        if (agent.isOnNavMesh) agent.Warp(transform.position);
         attackTimer = attackCooldown;
         SetState(State.Chase);
     }

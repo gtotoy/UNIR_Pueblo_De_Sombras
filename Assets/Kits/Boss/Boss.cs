@@ -45,6 +45,7 @@ public class Boss : MonoBehaviour
     public Phase CurrentPhase;
 
     public Action<Boss> OnHealthChanged;
+    public event Action OnDefeated;
 
     public BossBackpack Backpack => backpack;
 
@@ -197,6 +198,7 @@ public class Boss : MonoBehaviour
             case State.Dead:
                 {
                     animator?.SetTrigger("death");
+                    OnDefeated?.Invoke();
                     break;
                 }
         }

@@ -11,12 +11,12 @@ public class PlayerCombatController : MonoBehaviour
     [Header("Melee")]
     public float meleeDamage = 20f;
     public float meleeRadius = 1.5f;
-    public float meleeHitDelay = 0.2f;
     public LayerMask enemyLayers;
 
     [Header("Special")]
     public float specialDamage = 35f;
     public float specialRadius = 4f;
+    public float specialKnockbackForce = 4f;
 
     [Header("Ranged / Shield")]
     public GameObject shieldProjectilePrefab;
@@ -86,7 +86,12 @@ public class PlayerCombatController : MonoBehaviour
         atkTimer = attackCooldown;
         anim.SetTrigger("normalAttack");
         Play(sfxMeleeSwing);
-        Invoke(nameof(DealMeleeDamage), meleeHitDelay);
+    }
+
+    // Llamar desde Animation Event en el frame exacto del impacto visual
+    public void OnMeleeHitFrame()
+    {
+        DealMeleeDamage();
     }
 
     public void OnSpecialAttack(InputAction.CallbackContext context)
@@ -95,7 +100,12 @@ public class PlayerCombatController : MonoBehaviour
         spTimer = specialCooldown;
         anim.SetTrigger("specialAttack");
         Play(sfxMeleeSwing);
-        Invoke(nameof(DealSpecialDamage), 0.3f);
+    }
+
+    // Llamar desde Animation Event en el frame exacto del impacto visual
+    public void OnSpecialHitFrame()
+    {
+        DealSpecialDamage();
     }
 
     public void OnRanged(InputAction.CallbackContext context)
@@ -213,6 +223,10 @@ public class PlayerCombatController : MonoBehaviour
             else if (boss)
             {
                 boss.MainBodyTakeDamage(specialDamage);
+            }
+            else
+            {
+                hit.GetComponentInParent<EnemyController>()?.ApplyKnockback(transform.position, specialKnockbackForce);
             }
         }
         if (hitSomething)

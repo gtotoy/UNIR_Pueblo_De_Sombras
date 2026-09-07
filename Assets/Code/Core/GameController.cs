@@ -16,10 +16,6 @@ public class GameController : MonoBehaviour
     public BlessingDefinition[] GetBlessings() => Blessings;
     public int GetEquippedBlessingIndex() => EquippedBlessingIndex;
 
-    [Header("Waves")]
-    [SerializeField] int TotalWaves = 3;
-    [SerializeField] int CurrentWave = 0;
-
     [SerializeField] State currentState;
     private GameUIManager gameUIManager;
     private float parryHealthRecoveryPercentage = 1.0f;
@@ -34,7 +30,6 @@ public class GameController : MonoBehaviour
         Preparation,
         BlessingSelection,
         Wave,
-        Boss,
     }
 
     public void Awake()
@@ -66,16 +61,9 @@ public class GameController : MonoBehaviour
                 {
                     WaveManager.Instance.TriggerGameLoss("The tower was destroyed!");
                 }
-                else if (WaveManager.Instance.IsFinished)
+                else if (WaveManager.Instance.IsFinished && !WaveManager.Instance.AllWavesFinished)
                 {
-                    if (CurrentWave < TotalWaves)
-                    {
-                        SetState(State.Preparation);
-                    }
-                    else
-                    {
-                        SetState(State.Boss);
-                    }
+                    SetState(State.Preparation);
                 }
                 break;
         }
@@ -92,9 +80,14 @@ public class GameController : MonoBehaviour
             case State.Preparation:
                 Debug.Log("Entering Preparation state.");
                 gameUIManager.playerHUD.towerHealthBar.gameObject.SetActive(false);
+                foreach (var placedArtifact in FindObjectsByType<Artifact>(FindObjectsSortMode.None))
+                {
+                    Destroy(placedArtifact.gameObject);
+                }
                 foreach (var artifact in Artifacts) {
                     artifact.Reset();
                 }
+                EquippedBlessingIndex = -1;
                 {
                     var playerController = FindFirstObjectByType<PlayerCharacterController>();
                     var playerInput = playerController.GetComponent<PlayerInput>();
@@ -103,6 +96,7 @@ public class GameController : MonoBehaviour
                 }
                 gameUIManager.EnterPreparation(Artifacts);
                 gameUIManager.playerHUD.UpdateSelectedArtifact(SelectedArtifactIndex);
+                CameraZoomController.Instance?.EnterPreparation();
                 break;
             case State.BlessingSelection:
                 gameUIManager.playerHUD.artifactsParent.gameObject.SetActive(false);
@@ -119,16 +113,7 @@ public class GameController : MonoBehaviour
                     playerInput.actions.FindActionMap("Attack").Enable();
                 }
                 WaveManager.Instance.StartWave();
-                CurrentWave += 1;
-                break;
-            case State.Boss:
-                Debug.Log("Entering Boss state.");
-                {
-                    var playerController = FindFirstObjectByType<PlayerCharacterController>();
-                    var playerInput = playerController.GetComponent<PlayerInput>();
-                    playerInput.actions.FindActionMap("Preparation").Disable();
-                    playerInput.actions.FindActionMap("Attack").Enable();
-                }
+                CameraZoomController.Instance?.EnterWave();
                 break;
         }
     }

@@ -7,12 +7,25 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance { get; private set; }
 
+    [System.Serializable]
+    public class WaveData
+    {
+        public Transform[] spawnPoints;
+        public int enemiesInWave = 5;
+        public float timeBetweenSpawns = 1.2f;
+        [Tooltip("Enclosing sphere marking the zone this wave takes place in. Enabled while this wave is active, disabled once cleared.")]
+        public GameObject enclosureSphere;
+    }
+
     [Header("Wave Config")]
     public bool Autoplay = true;
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] Transform[] spawnPoints;
-    [SerializeField] int enemiesInWave = 5;
-    [SerializeField] float timeBetweenSpawns = 1.2f;
+    [SerializeField] WaveData[] waves;
+    [SerializeField] float spawnScatterRadius = 1.5f;
+
+    [Header("Boss (spawns once the final wave's enemies are cleared)")]
+    [SerializeField] Boss boss;
+    [SerializeField] Transform bossSpawnPoint;
 
     [Header("Player")]
     [SerializeField] Health playerHealth;
@@ -22,10 +35,12 @@ public class WaveManager : MonoBehaviour
     [SerializeField] GameObject winPanel;
     [SerializeField] GameObject losePanel;
 
+    int currentWaveIndex;
     int enemiesAlive;
     bool finished;
 
     public bool IsFinished { get { return finished; } }
+    public bool AllWavesFinished { get { return currentWaveIndex >= waves.Length; } }
 
     void Awake()
     {
@@ -35,12 +50,20 @@ public class WaveManager : MonoBehaviour
         finished = false;
         if (winPanel) winPanel.SetActive(false);
         if (losePanel) losePanel.SetActive(false);
+
+        for (int i = 0; i < waves.Length; i++)
+        {
+            if (waves[i].enclosureSphere)
+                waves[i].enclosureSphere.SetActive(i == currentWaveIndex);
+        }
     }
 
     void Start()
     {
         if (playerHealth != null)
             playerHealth.OnDeath += OnPlayerDeath;
+        if (boss != null)
+            boss.OnDefeated += HandleBossDefeated;
 
         if (!Autoplay) { return; }
         StartWave();
@@ -48,6 +71,8 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
+        if (AllWavesFinished) return;
+
         finished = false;
         SetStatus("Wave starting...");
         StartCoroutine(RunWave());
@@ -57,13 +82,15 @@ public class WaveManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        enemiesAlive = enemiesInWave;
+        WaveData wave = waves[currentWaveIndex];
+
+        enemiesAlive = wave.enemiesInWave;
         SetStatus($"Enemies remaining: {enemiesAlive}");
 
-        for (int i = 0; i < enemiesInWave; i++)
+        for (int i = 0; i < wave.enemiesInWave; i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(timeBetweenSpawns);
+            SpawnEnemy(wave);
+            yield return new WaitForSeconds(wave.timeBetweenSpawns);
         }
 
         {
@@ -74,12 +101,10 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    [SerializeField] float spawnScatterRadius = 1.5f;
-
-    void SpawnEnemy()
+    void SpawnEnemy(WaveData wave)
     {
-        if (spawnPoints == null || spawnPoints.Length == 0) return;
-        Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        if (wave.spawnPoints == null || wave.spawnPoints.Length == 0) return;
+        Transform sp = wave.spawnPoints[Random.Range(0, wave.spawnPoints.Length)];
 
         // Offset aleatorio en XZ para evitar que los enemigos aparezcan apilados
         Vector2 scatter = Random.insideUnitCircle * spawnScatterRadius;
@@ -94,17 +119,49 @@ public class WaveManager : MonoBehaviour
         enemiesAlive = Mathf.Max(0, enemiesAlive - 1);
         SetStatus($"Enemies remaining: {enemiesAlive}");
         if (enemiesAlive == 0)
-            StartCoroutine(WaveCleared());
+        {
+            bool isFinalWave = currentWaveIndex == waves.Length - 1;
+            StartCoroutine(isFinalWave ? SpawnBoss() : WaveCleared());
+        }
     }
 
     IEnumerator WaveCleared()
     {
         SetStatus("Wave cleared!");
         yield return new WaitForSeconds(1.5f);
+
+        WaveData clearedWave = waves[currentWaveIndex];
+        if (clearedWave.enclosureSphere) clearedWave.enclosureSphere.SetActive(false);
+
+        currentWaveIndex++;
+
+        WaveData nextWave = waves[currentWaveIndex];
+        if (nextWave.enclosureSphere) nextWave.enclosureSphere.SetActive(true);
+
         finished = true;
-        // TODO(gus): Move UI handling to GameController to work with GameUIManager and pause menu.
-        //if (winPanel) winPanel.SetActive(true);
-        //Time.timeScale = 0f;
+    }
+
+    IEnumerator SpawnBoss()
+    {
+        SetStatus("The horde is defeated... something stirs.");
+        yield return new WaitForSeconds(1.5f);
+
+        WaveData clearedWave = waves[currentWaveIndex];
+        if (clearedWave.enclosureSphere) clearedWave.enclosureSphere.SetActive(false);
+
+        currentWaveIndex++;
+
+        if (boss != null)
+        {
+            if (bossSpawnPoint != null) boss.transform.position = bossSpawnPoint.position;
+            boss.gameObject.SetActive(true);
+            boss.SetState(Boss.State.Tracking);
+        }
+    }
+
+    void HandleBossDefeated()
+    {
+        TriggerGameWin("Boss defeated!");
     }
 
     void OnPlayerDeath()
@@ -118,6 +175,15 @@ public class WaveManager : MonoBehaviour
         finished = true;
         SetStatus(message);
         if (losePanel) losePanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void TriggerGameWin(string message)
+    {
+        if (finished) return;
+        finished = true;
+        SetStatus(message);
+        if (winPanel) winPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 
@@ -144,5 +210,7 @@ public class WaveManager : MonoBehaviour
     {
         if (playerHealth != null)
             playerHealth.OnDeath -= OnPlayerDeath;
+        if (boss != null)
+            boss.OnDefeated -= HandleBossDefeated;
     }
 }

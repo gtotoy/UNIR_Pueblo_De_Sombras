@@ -44,16 +44,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ba9eae9a33e7543b88417a82a41792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  enemyPrefab: {fileID: 1200496799848045097, guid: e96b04f99f7b2bd40913bd8cd6633c35, type: 3}
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemiesInWave: 15
-  timeBetweenSpawns: 0.625
+  Autoplay: 0
+  enemyPrefab: {fileID: 720315556265217792, guid: b641cf600787ed44f86b440a7436af8e, type: 3}
+  waves:
+  - spawnPoints:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    enemiesInWave: 10
+    timeBetweenSpawns: 0.625
+    enclosureSphere: {fileID: 0}
+  - spawnPoints:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    enemiesInWave: 12
+    timeBetweenSpawns: 0.625
+    enclosureSphere: {fileID: 0}
+  - spawnPoints:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    enemiesInWave: 15
+    timeBetweenSpawns: 0.625
+    enclosureSphere: {fileID: 0}
+  spawnScatterRadius: 1.5
+  boss: {fileID: 0}
+  bossSpawnPoint: {fileID: 0}
   playerHealth: {fileID: 0}
   statusText: {fileID: 0}
   winPanel: {fileID: 0}
   losePanel: {fileID: 0}
-  spawnScatterRadius: 1.5

@@ -97,7 +97,7 @@ Transform:
   m_GameObject: {fileID: 4444557381552675422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 0.57, z: 3.81}
+  m_LocalPosition: {x: 177.30998, y: 2.45, z: 65.65999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -156,9 +156,13 @@ MonoBehaviour:
   P3AttackCooldown: 2
   P3Threshold: 0.5
   MinionPrefab: {fileID: 0}
+  MinionSpawnPoints: []
+  MinionSpawnCount: 3
+  MinionSpawnScatterRadius: 1.5
+  MinionSpawnDelay: 0.5
   SfxAttackHit: {fileID: 8300000, guid: ad10399abb9431a40b001f8ea803e810, type: 3}
   InitialState: 1
-  CurrentState: 0
+  CurrentState: 1
   CurrentPhase: 0
 --- !u!1 &7077815941671615651
 GameObject:
