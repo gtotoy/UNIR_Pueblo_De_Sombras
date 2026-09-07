@@ -155,7 +155,9 @@ MonoBehaviour:
   P2RangedAttackDamage: 10
   P3AttackCooldown: 2
   P3Threshold: 0.5
+  MinionPrefab: {fileID: 0}
   SfxAttackHit: {fileID: 8300000, guid: ad10399abb9431a40b001f8ea803e810, type: 3}
+  InitialState: 1
   CurrentState: 0
   CurrentPhase: 0
 --- !u!1 &7077815941671615651

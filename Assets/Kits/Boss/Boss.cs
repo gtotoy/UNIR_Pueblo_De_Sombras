@@ -71,22 +71,30 @@ public class Boss : MonoBehaviour
 
     public void Update()
     {
+        void FaceTarget(Transform target)
+        {
+            var targetDirection = target.position - transform.position;
+            targetDirection.y = 0;
+            if (targetDirection != Vector3.zero)
+            {
+                var targetRotation = Quaternion.LookRotation(targetDirection);
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRotation,
+                    FacingAngularSpeed * Time.deltaTime
+                );
+            }
+        }
+
         switch (CurrentState)
         {
             case State.Tracking:
                 {
-                    // Face player
-                    var targetDirection = playerCharacterController.transform.position - transform.position;
-                    targetDirection.y = 0; // Keep the boss upright
-                    if (targetDirection != Vector3.zero)
-                    {
-                        var targetRotation = Quaternion.LookRotation(targetDirection);
-                        transform.rotation = Quaternion.RotateTowards(
-                            transform.rotation,
-                            targetRotation,
-                            FacingAngularSpeed * Time.deltaTime
-                        );
-                    }
+                    var target = playerCharacterController.transform;
+
+                    FaceTarget(target);
+
+                    agent.SetDestination(target.position);
 
                     void TryToAttack() {
                         if (cooldownNextTimeAttack > Time.time || !playerCharacterController) { return; }
@@ -99,7 +107,7 @@ public class Boss : MonoBehaviour
                             _ => 2f
                         };
 
-                        var targetDirection = playerCharacterController.transform.position - transform.position;
+                        var targetDirection = target.position - transform.position;
                         targetDirection.y = 0;
                         var distanceToPlayer = targetDirection.magnitude;
 
@@ -136,6 +144,7 @@ public class Boss : MonoBehaviour
                 }
             case State.Attacking:
                 {
+                    FaceTarget(playerCharacterController.transform);
                     if (playerCharacterController.PlayerCombatController.IsParrying)
                     {
                         TryGetCurrentAttackParried();
@@ -164,18 +173,24 @@ public class Boss : MonoBehaviour
     public void SetState(State newState)
     {
         CurrentState = newState;
-        switch (CurrentState) {
+        switch (CurrentState)
+        {
             case State.Tracking:
                 {
                     animator?.SetBool("isStunned", false);
                     break;
                 }
-                case State.Stunned:
+            case State.Attacking:
+                {
+                    agent.ResetPath();
+                    break;
+                }
+            case State.Stunned:
                 {
                     animator?.SetBool("isStunned", true);
                     break;
                 }
-                case State.Dead:
+            case State.Dead:
                 {
                     animator?.SetTrigger("death");
                     break;
