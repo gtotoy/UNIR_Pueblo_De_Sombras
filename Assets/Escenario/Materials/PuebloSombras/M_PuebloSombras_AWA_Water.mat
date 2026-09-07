@@ -38,9 +38,9 @@ Material:
     - _Smoothness: 0.72
     - _Tiling: 5.5
     m_Colors:
-    - _DeepColor: {r: 0.2, g: 0.31, b: 0.34, a: 1}
+    - _DeepColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0.68, g: 0.77, b: 0.78, a: 1}
-    - _ShallowColor: {r: 0.46, g: 0.58, b: 0.59, a: 1}
+    - _ShallowColor: {r: 0.17271858, g: 0.25419405, b: 0.44654083, a: 1}
     - _SpeedA: {r: 0.006, g: 0.002, b: 0, a: 0}
     - _SpeedB: {r: -0.003, g: 0.005, b: 0, a: 0}
   m_BuildTextureStacks: []
