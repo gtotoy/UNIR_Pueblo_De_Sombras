@@ -31,6 +31,10 @@ public class Boss : MonoBehaviour
     public float P3AttackCooldown = 2f;
     public float P3Threshold = 0.5f; // 50% max flesh HP triggers minions
     public GameObject MinionPrefab;
+    public Transform[] MinionSpawnPoints;
+    public float MinionSpawnCount = 3;
+    public float MinionSpawnScatterRadius = 1.5f;
+    public float MinionSpawnDelay = 0.5f;
 
     [Header("Audio")]
     [SerializeField] AudioClip SfxAttackHit;
@@ -261,8 +265,16 @@ public class Boss : MonoBehaviour
         SetState(State.Transitioning);
         CurrentPhase = Phase.Phase3;
         Debug.Log("Enraged! Summoning Minion Squad to protect boss coordinates!");
-        // TODO(gus): Spawn minions
-        await Awaitable.WaitForSecondsAsync(3.0f, destroyCancellationToken);
+        await Awaitable.WaitForSecondsAsync(1.0f, destroyCancellationToken);
+        for (int i = 0; i < MinionSpawnCount; i += 1)
+        {
+            var spawnPoint = MinionSpawnPoints[UnityEngine.Random.Range(0, MinionSpawnPoints.Length)];
+            // Offset aleatorio en XZ para evitar que los enemigos aparezcan apilados
+            Vector2 scatter = UnityEngine.Random.insideUnitCircle * MinionSpawnScatterRadius;
+            Vector3 spawnPos = spawnPoint.position + new Vector3(scatter.x, 0f, scatter.y);
+            Instantiate(MinionPrefab, spawnPos, spawnPoint.rotation);
+            await Awaitable.WaitForSecondsAsync(MinionSpawnDelay, destroyCancellationToken);
+        }
         SetState(State.Tracking);
     }
 
