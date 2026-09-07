@@ -177,8 +177,18 @@ public class PlayerCombatController : MonoBehaviour
         bool hitSomething = false;
         foreach (var hit in hits)
         {
-            hit.GetComponent<Health>()?.TakeDamage(meleeDamage);
             hitSomething = true;
+            hit.GetComponent<Health>()?.TakeDamage(meleeDamage);
+            var bossBackpack = hit.GetComponent<BossBackpack>();
+            var boss = hit.GetComponentInParent<Boss>();
+            if (bossBackpack)
+            {
+                bossBackpack.TakeDamage(specialDamage);
+            }
+            else if (boss)
+            {
+                boss.MainBodyTakeDamage(specialDamage);
+            }
         }
         if (hitSomething)
         {
@@ -193,8 +203,18 @@ public class PlayerCombatController : MonoBehaviour
         bool hitSomething = false;
         foreach (var hit in hits)
         {
-            hit.GetComponent<Health>()?.TakeDamage(specialDamage);
             hitSomething = true;
+            hit.GetComponent<Health>()?.TakeDamage(specialDamage);
+            var bossBackpack = hit.GetComponent<BossBackpack>();
+            var boss = hit.GetComponentInParent<Boss>();
+            if (bossBackpack)
+            {
+                bossBackpack.TakeDamage(specialDamage);
+            }
+            else if (boss)
+            {
+                boss.MainBodyTakeDamage(specialDamage);
+            }
         }
         if (hitSomething)
         {

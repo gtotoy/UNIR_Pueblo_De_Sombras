@@ -68,9 +68,22 @@ public class ShieldProjectile : MonoBehaviour
         if (hitLayers != 0 && (hitLayers.value & (1 << other.gameObject.layer)) == 0) return;
 
         var h = other.GetComponent<Health>() ?? other.GetComponentInParent<Health>();
-        if (h != null)
+        if (h)
         {
             h.TakeDamage(damage);
+            combat?.NotifyHitLanded();
+        }
+
+        var bossBackpack = other.GetComponent<BossBackpack>();
+        var boss = other.GetComponentInParent<Boss>();
+        if (bossBackpack)
+        {
+            bossBackpack.TakeDamage(damage);
+            combat?.NotifyHitLanded();
+        }
+        else if (boss)
+        {
+            boss.MainBodyTakeDamage(damage);
             combat?.NotifyHitLanded();
         }
 
