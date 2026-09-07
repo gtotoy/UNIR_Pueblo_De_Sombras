@@ -25,6 +25,9 @@ public class PlayerCharacterController : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioClip sfxDash;
 
+    [Header("Camera")]
+    [SerializeField] Transform cameraTransform;
+
     private Rigidbody rb;
     private Transform trans;
     private Animator anim;
@@ -62,6 +65,9 @@ public class PlayerCharacterController : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
 
         combatLayerIndex = anim.GetLayerIndex("CombatLayer");
+
+        if (cameraTransform == null && Camera.main != null)
+            cameraTransform = Camera.main.transform;
 
         if (lockOnReticlePrefab != null)
         {
@@ -314,7 +320,21 @@ public class PlayerCharacterController : MonoBehaviour
         bool running = dashHeld;
         float activeSpeed = blocking ? blockMoveSpeed : (running ? moveSpeed * runSpeedMultiplier : moveSpeed);
 
-        Vector3 dir = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 dir;
+        if (cameraTransform != null)
+        {
+            Vector3 camForward = cameraTransform.forward;
+            camForward.y = 0f;
+            camForward.Normalize();
+            Vector3 camRight = cameraTransform.right;
+            camRight.y = 0f;
+            camRight.Normalize();
+            dir = camRight * moveInput.x + camForward * moveInput.y;
+        }
+        else
+        {
+            dir = new Vector3(moveInput.x, 0, moveInput.y);
+        }
         bool hasMoveInput = dir.sqrMagnitude > 0.01f;
 
         if (hasMoveInput)

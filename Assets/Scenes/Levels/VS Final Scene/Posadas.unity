@@ -62988,8 +62988,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258173577}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 61.55001, y: 24.953705, z: 318.65}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
+  m_LocalPosition: {x: 76.55, y: 24.953701, z: 354.8632}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -163472,6 +163472,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 292131868171918292, guid: 32dec12f7b267f14aaf3d29c301b22d9, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 929114795}
     - target: {fileID: 7257528824292303065, guid: 32dec12f7b267f14aaf3d29c301b22d9, type: 3}
       propertyPath: m_Name
       value: PlayerCharacterPrefab
@@ -205362,13 +205366,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929114794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 61.55001, y: 24.953705, z: 318.65}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
+  m_LocalPosition: {x: 76.55, y: 24.953701, z: 354.8632}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 329786136}
-  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 180, z: 0}
 --- !u!114 &929114796
 MonoBehaviour:
   m_ObjectHideFlags: 0
