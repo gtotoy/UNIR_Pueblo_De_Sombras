@@ -52,6 +52,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     private int combatLayerIndex;
 
+    public PlayerCombatController PlayerCombatController => combat;
+    public Health PlayerHealth => health;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();

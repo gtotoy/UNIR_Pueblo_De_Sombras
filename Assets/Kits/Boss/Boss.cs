@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Boss : MonoBehaviour
 {
@@ -16,15 +17,23 @@ public class Boss : MonoBehaviour
     [Header("Phase 1 Settings (Backpack Intact)")]
     public float P1AttackCooldown = 3f;
     public float P1AttackRange = 3f;
+    public float P1AttackDamage = 20f;
+    public float P1ParryableAttackDamage = 30f;
 
     [Header("Phase 2 Settings (Backpack Broken)")]
     public float P2AttackCooldown = 1.5f;
     public float P2MeleeAttackRange = 3f;
+    public float P2MeleeAttackDamage = 15f;
     public float P2RangedAttackRange = 12f;
+    public float P2RangedAttackDamage = 10f;
 
     [Header("Phase 3 Settings (Critical)")]
     public float P3AttackCooldown = 2f;
     public float P3Threshold = 0.5f; // 50% max flesh HP triggers minions
+    public GameObject MinionPrefab;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip SfxAttackHit;
 
     [Header("State")]
     public State CurrentState;
@@ -36,6 +45,7 @@ public class Boss : MonoBehaviour
 
     private BossBackpack backpack;
     private PlayerCharacterController playerCharacterController;
+    private NavMeshAgent agent;
     private float cooldownNextTimeAttack = 0f;
     private CancellationTokenSource parryableAttackCts = null;
     private bool isParryWindowOpen = false;
@@ -46,10 +56,7 @@ public class Boss : MonoBehaviour
         MainBodyCurrentHealth = MainBodyMaxHealth;
         backpack = GetComponentInChildren<BossBackpack>();
         playerCharacterController = FindFirstObjectByType<PlayerCharacterController>();
-        if (playerCharacterController == null)
-        {
-            Debug.LogError($"{nameof(PlayerCharacterController)} not found in the scene.");
-        }
+        agent = GetComponent<NavMeshAgent>();
         OnHealthChanged += (Boss boss) => {
             if (CurrentPhase == Phase.Phase2 && (TotalCurrentHealth / TotalMaxHealth <= P3Threshold))
             {
@@ -126,7 +133,10 @@ public class Boss : MonoBehaviour
                 }
             case State.Attacking:
                 {
-
+                    if (playerCharacterController.PlayerCombatController.IsParrying)
+                    {
+                        TryGetCurrentAttackParried();
+                    }
                     break;
                 }
             case State.Stunned:
@@ -257,6 +267,10 @@ public class Boss : MonoBehaviour
     {
         SetState(State.Attacking);
         Debug.Log("Executing normal melee attack...");
+        {
+            playerCharacterController.PlayerHealth.TakeDamage(P1AttackDamage);
+            AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
+        }
         await Awaitable.WaitForSecondsAsync(1.2f, destroyCancellationToken);
         SetState(State.Tracking);
     }
@@ -272,6 +286,10 @@ public class Boss : MonoBehaviour
             isParryWindowOpen = true;
             await Awaitable.WaitForSecondsAsync(0.3f, parryableAttackCts.Token);
             isParryWindowOpen = false;
+            {
+                playerCharacterController.PlayerHealth.TakeDamage(P1ParryableAttackDamage);
+                AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
+            }
             await Awaitable.WaitForSecondsAsync(0.8f, parryableAttackCts.Token);
             SetState(State.Tracking);
             Debug.Log("Parry attack finished");
@@ -293,6 +311,10 @@ public class Boss : MonoBehaviour
     {
         SetState(State.Attacking);
         Debug.Log("Executing P2 Fast Combo Strike...");
+        {
+            playerCharacterController.PlayerHealth.TakeDamage(P2MeleeAttackDamage);
+            AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
+        }
         await Awaitable.WaitForSecondsAsync(0.8f, destroyCancellationToken);
         SetState(State.Tracking);
     }
@@ -304,6 +326,10 @@ public class Boss : MonoBehaviour
         await Awaitable.WaitForSecondsAsync(0.4f, destroyCancellationToken);
 
         // TODO(gus): Instantiate energy blast
+        {
+            playerCharacterController.PlayerHealth.TakeDamage(P2RangedAttackDamage);
+            AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
+        }
 
         await Awaitable.WaitForSecondsAsync(0.5f, destroyCancellationToken);
         SetState(State.Tracking);
