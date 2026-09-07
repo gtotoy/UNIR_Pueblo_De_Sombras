@@ -36,6 +36,7 @@ public class Boss : MonoBehaviour
     [SerializeField] AudioClip SfxAttackHit;
 
     [Header("State")]
+    public State InitialState;
     public State CurrentState;
     public Phase CurrentPhase;
 
@@ -65,7 +66,7 @@ public class Boss : MonoBehaviour
                 _ = TriggerPhase3TransitionAsync();
             }
         };
-        SetState(State.Tracking);
+        SetState(InitialState);
     }
 
     public void Update()
