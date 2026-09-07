@@ -161,7 +161,6 @@ public class PlayerCombatController : MonoBehaviour
         parryTimer = parryWindow;
         anim.SetTrigger("parry");
         Play(sfxParry);
-        NotifyParryLanded();
     }
 
     public bool TryBlock(GameObject attacker)

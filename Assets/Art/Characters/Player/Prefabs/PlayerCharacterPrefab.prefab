@@ -269,7 +269,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8492151190064666080}
         m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
-        m_MethodName: OnParry
+        m_MethodName: OnBlock
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -374,6 +374,7 @@ MonoBehaviour:
   cycleReleaseThreshold: 0.3
   lockOnReticlePrefab: {fileID: 11455511100000012, guid: 58068e7632a24f2d960754cd39f756a9, type: 3}
   sfxDash: {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
+  cameraTransform: {fileID: 0}
 --- !u!114 &8492151190064666080
 MonoBehaviour:
   m_ObjectHideFlags: 0

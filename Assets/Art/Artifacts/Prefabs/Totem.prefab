@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4135464474324785943}
   - component: {fileID: 416033617053126733}
+  - component: {fileID: -1755140705427052289}
+  - component: {fileID: 6316666006626807201}
   m_Layer: 0
   m_Name: Totem
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4336010172772586033}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 171.9, y: 3.86, z: 66.1}
+  m_LocalPosition: {x: 171.9, y: 0, z: 66.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56,6 +58,36 @@ CapsuleCollider:
   m_Height: 3.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.56, z: 0}
+--- !u!114 &-1755140705427052289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336010172772586033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e136aa5c914ae546a973cd5042e4700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Artifact
+  IsEnemyTarget: 1
+  LifetimeInSeconds: Infinity
+  MultiplySpeed: 1
+--- !u!114 &6316666006626807201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336010172772586033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54af52768730f47b16a263e1d201c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHP: 100
+  regainPercent: 0.5
+  regainWindow: 3
 --- !u!1001 &4191931059400345473
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -163,6 +163,7 @@ public class EnemyController : MonoBehaviour
             // Parry: si el jugador está en ventana de parry, stunearse
             if (playerCombat.IsParrying)
             {
+                playerCombat.NotifyParryLanded();
                 Stun();
                 return;
             }

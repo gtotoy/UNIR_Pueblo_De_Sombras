@@ -46,6 +46,7 @@ public class Boss : MonoBehaviour
     private BossBackpack backpack;
     private PlayerCharacterController playerCharacterController;
     private NavMeshAgent agent;
+    private Animator animator;
     private float cooldownNextTimeAttack = 0f;
     private CancellationTokenSource parryableAttackCts = null;
     private bool isParryWindowOpen = false;
@@ -55,6 +56,7 @@ public class Boss : MonoBehaviour
     {
         MainBodyCurrentHealth = MainBodyMaxHealth;
         backpack = GetComponentInChildren<BossBackpack>();
+        animator = GetComponentInChildren<Animator>();
         playerCharacterController = FindFirstObjectByType<PlayerCharacterController>();
         agent = GetComponent<NavMeshAgent>();
         OnHealthChanged += (Boss boss) => {
@@ -164,10 +166,17 @@ public class Boss : MonoBehaviour
         switch (CurrentState) {
             case State.Tracking:
                 {
+                    animator?.SetBool("isStunned", false);
                     break;
                 }
                 case State.Stunned:
                 {
+                    animator?.SetBool("isStunned", true);
+                    break;
+                }
+                case State.Dead:
+                {
+                    animator?.SetTrigger("death");
                     break;
                 }
         }
@@ -266,6 +275,7 @@ public class Boss : MonoBehaviour
     private async Awaitable TriggerRegularAttackAsync()
     {
         SetState(State.Attacking);
+        animator?.SetTrigger("attackRegular");
         Debug.Log("Executing normal melee attack...");
         {
             playerCharacterController.PlayerHealth.TakeDamage(P1AttackDamage);
@@ -280,6 +290,7 @@ public class Boss : MonoBehaviour
         Debug.Assert(parryableAttackCts == null, "Parryable attack already in progress.");
         parryableAttackCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
         SetState(State.Attacking);
+        animator?.SetTrigger("attackParryable");
         try
         {
             await Awaitable.WaitForSecondsAsync(0.4f, parryableAttackCts.Token);
@@ -310,6 +321,7 @@ public class Boss : MonoBehaviour
     private async Awaitable TriggerP2FastMeleeAsync()
     {
         SetState(State.Attacking);
+        animator?.SetTrigger("attackP2Melee");
         Debug.Log("Executing P2 Fast Combo Strike...");
         {
             playerCharacterController.PlayerHealth.TakeDamage(P2MeleeAttackDamage);
@@ -322,6 +334,7 @@ public class Boss : MonoBehaviour
     private async Awaitable TriggerP2RangedAttackAsync()
     {
         SetState(State.Attacking);
+        animator?.SetTrigger("attackP2Ranged");
         Debug.Log("Telegraphing Ranged Energy Blast...");
         await Awaitable.WaitForSecondsAsync(0.4f, destroyCancellationToken);
 

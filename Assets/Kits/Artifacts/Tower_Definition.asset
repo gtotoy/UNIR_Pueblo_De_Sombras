@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4820fa5e6772a64478804056ffe2c8c0, type: 3}
   m_Name: Tower_Definition
   m_EditorClassIdentifier: Assembly-CSharp::ArtifactDefinition
-  Prefab: {fileID: 6296409870109521383, guid: a07e14959b2a43d4c9808cebba8ed5c9, type: 3}
+  Prefab: {fileID: -1755140705427052289, guid: 15d102191085d195a891368d51c42e7d, type: 3}
   MaxCount: 1
   IsRequired: 1
   Image: {fileID: 21300000, guid: a6938ca412ab4fb3cbc499f1c819bb36, type: 3}
-  PlacementOffset: {x: 0, y: 3, z: 2}
+  PlacementOffset: {x: 0, y: 1, z: 2}
