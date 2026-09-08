@@ -6,8 +6,11 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Health))]
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, ITargetable
 {
+    public Transform TargetTransform => transform;
+    public bool IsTargetable => state != State.Dead && (health == null || !health.IsDead);
+
     enum State { Idle, Chase, Attack, Stunned, Knockback, Dead }
     State state = State.Idle;
 
@@ -272,7 +275,7 @@ public class EnemyController : MonoBehaviour
         var col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
-        WaveManager.Instance?.RegisterEnemyDeath();
+        WaveManager.Instance?.RegisterEnemyDeath(this);
         Destroy(gameObject, 3f);
     }
 

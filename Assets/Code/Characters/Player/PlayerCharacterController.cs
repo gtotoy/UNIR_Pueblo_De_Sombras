@@ -41,6 +41,7 @@ public class PlayerCharacterController : MonoBehaviour
     private bool dashHeld;
 
     private Transform lockedTarget;
+    private ITargetable lockedTargetable;
     private Vector2 cycleInput;
     private bool cycleStickReleased = true;
     private LockOnReticle activeReticle;
@@ -148,15 +149,22 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
+    static IEnumerable<ITargetable> GetTargetables()
+    {
+        foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None)) yield return enemy;
+        foreach (var boss in FindObjectsByType<Boss>(FindObjectsSortMode.None)) yield return boss;
+    }
+
     void SetEnemyCollisionsIgnored(bool ignore)
     {
         if (col == null) return;
 
         if (ignore)
         {
-            foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+            foreach (var target in GetTargetables())
             {
-                Collider enemyCol = enemy.GetComponent<Collider>();
+                if (target is not Component targetComponent) continue;
+                Collider enemyCol = targetComponent.GetComponentInChildren<Collider>();
                 if (enemyCol == null) continue;
                 Physics.IgnoreCollision(col, enemyCol, true);
                 ignoredEnemyColliders.Add(enemyCol);
@@ -192,7 +200,7 @@ public class PlayerCharacterController : MonoBehaviour
         if (!context.performed) return;
         if (IsPaused) return;
 
-        lockedTarget = lockedTarget != null ? null : FindClosestEnemy();
+        SetLockedTarget(lockedTarget != null ? null : FindClosestEnemy());
         UpdateReticle();
     }
 
@@ -201,20 +209,25 @@ public class PlayerCharacterController : MonoBehaviour
         cycleInput = new Vector2(context.ReadValue<float>(), 0f);
     }
 
-    Transform FindClosestEnemy()
+    void SetLockedTarget(ITargetable target)
     {
-        Transform closest = null;
-        float closestDist = lockOnRange;
-        foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
-        {
-            var enemyHealth = enemy.GetComponent<Health>();
-            if (enemyHealth != null && enemyHealth.IsDead) continue;
+        lockedTargetable = target;
+        lockedTarget = target?.TargetTransform;
+    }
 
-            float dist = Vector3.Distance(trans.position, enemy.transform.position);
+    ITargetable FindClosestEnemy()
+    {
+        ITargetable closest = null;
+        float closestDist = lockOnRange;
+        foreach (var target in GetTargetables())
+        {
+            if (!target.IsTargetable) continue;
+
+            float dist = Vector3.Distance(trans.position, target.TargetTransform.position);
             if (dist < closestDist)
             {
                 closestDist = dist;
-                closest = enemy.transform;
+                closest = target;
             }
         }
         return closest;
@@ -244,45 +257,43 @@ public class PlayerCharacterController : MonoBehaviour
 
     void CycleTarget(int direction)
     {
-        var enemies = new List<Transform>();
-        foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+        var targets = new List<ITargetable>();
+        foreach (var target in GetTargetables())
         {
-            var enemyHealth = enemy.GetComponent<Health>();
-            if (enemyHealth != null && enemyHealth.IsDead) continue;
-            if (Vector3.Distance(trans.position, enemy.transform.position) > lockOnRange) continue;
-            enemies.Add(enemy.transform);
+            if (!target.IsTargetable) continue;
+            if (Vector3.Distance(trans.position, target.TargetTransform.position) > lockOnRange) continue;
+            targets.Add(target);
         }
 
-        if (enemies.Count == 0)
+        if (targets.Count == 0)
         {
-            lockedTarget = null;
+            SetLockedTarget(null);
             return;
         }
 
-        enemies.Sort((a, b) => Vector3.Distance(trans.position, a.position).CompareTo(Vector3.Distance(trans.position, b.position)));
+        targets.Sort((a, b) => Vector3.Distance(trans.position, a.TargetTransform.position).CompareTo(Vector3.Distance(trans.position, b.TargetTransform.position)));
 
-        int currentIndex = enemies.IndexOf(lockedTarget);
+        int currentIndex = targets.IndexOf(lockedTargetable);
         if (currentIndex < 0)
         {
-            lockedTarget = enemies[0];
+            SetLockedTarget(targets[0]);
             return;
         }
 
-        int nextIndex = (currentIndex + direction + enemies.Count) % enemies.Count;
-        lockedTarget = enemies[nextIndex];
+        int nextIndex = (currentIndex + direction + targets.Count) % targets.Count;
+        SetLockedTarget(targets[nextIndex]);
     }
 
     void HandleLockOn()
     {
         if (lockedTarget == null) return;
 
-        var targetHealth = lockedTarget.GetComponent<Health>();
-        bool dead = targetHealth != null && targetHealth.IsDead;
+        bool dead = lockedTargetable != null && !lockedTargetable.IsTargetable;
         float dist = Vector3.Distance(trans.position, lockedTarget.position);
 
         if (dead || dist > lockOnRange)
         {
-            lockedTarget = null;
+            SetLockedTarget(null);
             UpdateReticle();
         }
     }

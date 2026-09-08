@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -26,6 +28,7 @@ public class WaveManager : MonoBehaviour
     [Header("Boss (spawns once the final wave's enemies are cleared)")]
     [SerializeField] Boss boss;
     [SerializeField] Transform bossSpawnPoint;
+    [SerializeField] GameObject bossHealthUI;
 
     [Header("Player")]
     [SerializeField] Health playerHealth;
@@ -38,9 +41,35 @@ public class WaveManager : MonoBehaviour
     int currentWaveIndex;
     int enemiesAlive;
     bool finished;
+    readonly List<EnemyController> aliveEnemies = new List<EnemyController>();
 
     public bool IsFinished { get { return finished; } }
     public bool AllWavesFinished { get { return currentWaveIndex >= waves.Length; } }
+    public bool HasWon { get; private set; }
+    public bool HasLost { get; private set; }
+    public int EnemiesAlive { get { return enemiesAlive; } }
+    public int CurrentWaveIndex { get { return currentWaveIndex; } }
+    public int TotalWaves { get { return waves.Length; } }
+    public IReadOnlyList<EnemyController> AliveEnemies { get { return aliveEnemies; } }
+
+    /// Zone marker for the wave currently active (or about to become active). Used by HUD indicators.
+    public Transform CurrentZoneSphere
+    {
+        get
+        {
+            if (currentWaveIndex < 0 || currentWaveIndex >= waves.Length) return null;
+            var sphere = waves[currentWaveIndex].enclosureSphere;
+            return sphere ? sphere.transform : null;
+        }
+    }
+
+    public Transform BossTransform
+    {
+        get { return (boss != null && boss.gameObject.activeInHierarchy) ? boss.transform : null; }
+    }
+
+    /// Raised whenever the status text changes, so HUD panels can refresh alongside it.
+    public event Action OnObjectiveChanged;
 
     void Awake()
     {
@@ -104,17 +133,20 @@ public class WaveManager : MonoBehaviour
     void SpawnEnemy(WaveData wave)
     {
         if (wave.spawnPoints == null || wave.spawnPoints.Length == 0) return;
-        Transform sp = wave.spawnPoints[Random.Range(0, wave.spawnPoints.Length)];
+        Transform sp = wave.spawnPoints[UnityEngine.Random.Range(0, wave.spawnPoints.Length)];
 
         // Offset aleatorio en XZ para evitar que los enemigos aparezcan apilados
-        Vector2 scatter = Random.insideUnitCircle * spawnScatterRadius;
+        Vector2 scatter = UnityEngine.Random.insideUnitCircle * spawnScatterRadius;
         Vector3 spawnPos = sp.position + new Vector3(scatter.x, 0f, scatter.y);
 
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject go = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        EnemyController enemy = go.GetComponent<EnemyController>();
+        if (enemy != null) aliveEnemies.Add(enemy);
     }
 
-    public void RegisterEnemyDeath()
+    public void RegisterEnemyDeath(EnemyController enemy)
     {
+        aliveEnemies.Remove(enemy);
         if (finished) return;
         enemiesAlive = Mathf.Max(0, enemiesAlive - 1);
         SetStatus($"Enemies remaining: {enemiesAlive}");
@@ -156,6 +188,7 @@ public class WaveManager : MonoBehaviour
             if (bossSpawnPoint != null) boss.transform.position = bossSpawnPoint.position;
             boss.gameObject.SetActive(true);
             boss.SetState(Boss.State.Tracking);
+            bossHealthUI.SetActive(true);
         }
     }
 
@@ -173,6 +206,7 @@ public class WaveManager : MonoBehaviour
     {
         if (finished) return;
         finished = true;
+        HasLost = true;
         SetStatus(message);
         if (losePanel) losePanel.SetActive(true);
         Time.timeScale = 0f;
@@ -182,15 +216,18 @@ public class WaveManager : MonoBehaviour
     {
         if (finished) return;
         finished = true;
+        HasWon = true;
         SetStatus(message);
         if (winPanel) winPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    void SetStatus(string msg)
+    /// Also used by GameController to route preparation/blessing-phase messages through the same HUD status text.
+    public void SetStatus(string msg)
     {
         if (statusText != null) statusText.text = msg;
         Debug.Log($"[WaveManager] {msg}");
+        OnObjectiveChanged?.Invoke();
     }
 
     // Called by UI buttons

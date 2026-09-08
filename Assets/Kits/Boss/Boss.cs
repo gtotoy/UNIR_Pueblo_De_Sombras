@@ -3,8 +3,11 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Boss : MonoBehaviour
+public class Boss : MonoBehaviour, ITargetable
 {
+    public Transform TargetTransform => transform;
+    public bool IsTargetable => CurrentState != State.Dead;
+
     public enum State { None, Tracking, Attacking, Stunned, Transitioning, Dead }
     public enum Phase { Phase1, Phase2, Phase3 }
     
@@ -100,6 +103,7 @@ public class Boss : MonoBehaviour
                     FaceTarget(target);
 
                     agent.SetDestination(target.position);
+                    animator?.SetFloat("speed", agent.velocity.magnitude);
 
                     void TryToAttack() {
                         if (cooldownNextTimeAttack > Time.time || !playerCharacterController) { return; }
@@ -188,6 +192,7 @@ public class Boss : MonoBehaviour
             case State.Attacking:
                 {
                     agent.ResetPath();
+                    animator?.SetFloat("speed", 0f);
                     break;
                 }
             case State.Stunned:
@@ -306,6 +311,7 @@ public class Boss : MonoBehaviour
     {
         SetState(State.Attacking);
         animator?.SetTrigger("attackRegular");
+        await Awaitable.WaitForSecondsAsync(0.3f, destroyCancellationToken);
         Debug.Log("Executing normal melee attack...");
         {
             playerCharacterController.PlayerHealth.TakeDamage(P1AttackDamage);
@@ -323,9 +329,9 @@ public class Boss : MonoBehaviour
         animator?.SetTrigger("attackParryable");
         try
         {
-            await Awaitable.WaitForSecondsAsync(0.4f, parryableAttackCts.Token);
+            await Awaitable.WaitForSecondsAsync(1f, parryableAttackCts.Token);
             isParryWindowOpen = true;
-            await Awaitable.WaitForSecondsAsync(0.3f, parryableAttackCts.Token);
+            await Awaitable.WaitForSecondsAsync(0.6f, parryableAttackCts.Token);
             isParryWindowOpen = false;
             {
                 playerCharacterController.PlayerHealth.TakeDamage(P1ParryableAttackDamage);

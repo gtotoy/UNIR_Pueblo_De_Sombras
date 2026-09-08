@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
     public int GetEquippedBlessingIndex() => EquippedBlessingIndex;
 
     [SerializeField] State currentState;
+    public State CurrentState { get { return currentState; } }
+    /// Raised whenever the Preparation/BlessingSelection/Wave flow advances, for HUD panels tracking objectives.
+    public event Action<State> OnStateChanged;
     private GameUIManager gameUIManager;
     private float parryHealthRecoveryPercentage = 1.0f;
     private float artifactDurationMultiplier = 1.0f;
@@ -79,6 +82,7 @@ public class GameController : MonoBehaviour
                 break;
             case State.Preparation:
                 Debug.Log("Entering Preparation state.");
+                WaveManager.Instance.SetStatus("Prepare your defenses: place your artifacts.");
                 gameUIManager.playerHUD.towerHealthBar.gameObject.SetActive(false);
                 foreach (var placedArtifact in FindObjectsByType<Artifact>(FindObjectsSortMode.None))
                 {
@@ -99,6 +103,7 @@ public class GameController : MonoBehaviour
                 CameraZoomController.Instance?.EnterPreparation();
                 break;
             case State.BlessingSelection:
+                WaveManager.Instance.SetStatus("Choose a blessing before the horde arrives.");
                 gameUIManager.playerHUD.artifactsParent.gameObject.SetActive(false);
                 gameUIManager.blessingsPanel.gameObject.SetActive(true);
                 break;
@@ -116,6 +121,7 @@ public class GameController : MonoBehaviour
                 CameraZoomController.Instance?.EnterWave();
                 break;
         }
+        OnStateChanged?.Invoke(currentState);
     }
 
     public void TryPlaceArtifact(Vector3 artifactPosition, Vector3 forward, Vector3 up)
