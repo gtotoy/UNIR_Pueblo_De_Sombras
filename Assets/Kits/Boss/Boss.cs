@@ -116,33 +116,31 @@ public class Boss : MonoBehaviour, ITargetable
                             _ => 2f
                         };
 
-                        var targetDirection = target.position - transform.position;
-                        targetDirection.y = 0;
-                        var distanceToPlayer = targetDirection.magnitude;
+                        var distanceToTarget = DistanceToTarget(target);
 
                         switch (CurrentPhase)
                         {
                             case Phase.Phase1:
-                                if (distanceToPlayer < P1AttackRange)
+                                if (distanceToTarget < P1AttackRange)
                                 {
                                     cooldownNextTimeAttack = Time.time + cooldownDuration;
 
                                     // 50/50 Chance to trigger a normal vs. parryable slash
-                                    if (UnityEngine.Random.value > 0.5f) { _ = TriggerRegularAttackAsync(); }
-                                    else { _ = TriggerParryableAttackAsync(); }
+                                    if (UnityEngine.Random.value > 0.5f) { _ = TriggerRegularAttackAsync(target); }
+                                    else { _ = TriggerParryableAttackAsync(target); }
                                 }
                                 break;
                             case Phase.Phase2:
                             case Phase.Phase3:
-                                if (distanceToPlayer <= P2MeleeAttackRange)
+                                if (distanceToTarget <= P2MeleeAttackRange)
                                 {
                                     cooldownNextTimeAttack = Time.time + cooldownDuration;
-                                    _ = TriggerP2FastMeleeAsync();
+                                    _ = TriggerP2FastMeleeAsync(target);
                                 } 
-                                else if (distanceToPlayer <= P2RangedAttackRange)
+                                else if (distanceToTarget <= P2RangedAttackRange)
                                 {
                                     cooldownNextTimeAttack = Time.time + cooldownDuration;
-                                    _ = TriggerP2RangedAttackAsync();
+                                    _ = TriggerP2RangedAttackAsync(target);
                                 }
                                 break;
                         }
@@ -221,6 +219,13 @@ public class Boss : MonoBehaviour, ITargetable
         {
             Debug.Log("Parry failed: No parryable attack in progress.");
         }
+    }
+
+    private float DistanceToTarget(Transform target)
+    {
+        var targetDirection = target.position - transform.position;
+        targetDirection.y = 0;
+        return targetDirection.magnitude;
     }
 
     private async Awaitable TriggerStunCycleAsync()
@@ -307,21 +312,23 @@ public class Boss : MonoBehaviour, ITargetable
     #endregion
 
     #region Attacks
-    private async Awaitable TriggerRegularAttackAsync()
+    private async Awaitable TriggerRegularAttackAsync(Transform target)
     {
         SetState(State.Attacking);
         animator?.SetTrigger("attackRegular");
         await Awaitable.WaitForSecondsAsync(0.3f, destroyCancellationToken);
         Debug.Log("Executing normal melee attack...");
+        if (DistanceToTarget(target) < P1AttackRange)
         {
-            playerCharacterController.PlayerHealth.TakeDamage(P1AttackDamage);
+            var modifier = playerCharacterController.PlayerCombatController.IsBlocking ? 0.1f : 1f;
+            playerCharacterController.PlayerHealth.TakeDamage(modifier * P1AttackDamage);
             AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
         }
         await Awaitable.WaitForSecondsAsync(1.2f, destroyCancellationToken);
         SetState(State.Tracking);
     }
 
-    private async Awaitable TriggerParryableAttackAsync()
+    private async Awaitable TriggerParryableAttackAsync(Transform target)
     {
         Debug.Assert(parryableAttackCts == null, "Parryable attack already in progress.");
         parryableAttackCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
@@ -333,8 +340,10 @@ public class Boss : MonoBehaviour, ITargetable
             isParryWindowOpen = true;
             await Awaitable.WaitForSecondsAsync(0.6f, parryableAttackCts.Token);
             isParryWindowOpen = false;
+            if (DistanceToTarget(target) < P1AttackRange)
             {
-                playerCharacterController.PlayerHealth.TakeDamage(P1ParryableAttackDamage);
+                var modifier = playerCharacterController.PlayerCombatController.IsBlocking ? 0.1f : 1f;
+                playerCharacterController.PlayerHealth.TakeDamage(modifier * P1ParryableAttackDamage);
                 AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
             }
             await Awaitable.WaitForSecondsAsync(0.8f, parryableAttackCts.Token);
@@ -354,20 +363,22 @@ public class Boss : MonoBehaviour, ITargetable
         }
     }
 
-    private async Awaitable TriggerP2FastMeleeAsync()
+    private async Awaitable TriggerP2FastMeleeAsync(Transform target)
     {
         SetState(State.Attacking);
         animator?.SetTrigger("attackP2Melee");
         Debug.Log("Executing P2 Fast Combo Strike...");
+        if (DistanceToTarget(target) < P2MeleeAttackRange)
         {
-            playerCharacterController.PlayerHealth.TakeDamage(P2MeleeAttackDamage);
+            var modifier = playerCharacterController.PlayerCombatController.IsBlocking ? 0.1f : 1f;
+            playerCharacterController.PlayerHealth.TakeDamage(modifier * P2MeleeAttackDamage);
             AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
         }
         await Awaitable.WaitForSecondsAsync(0.8f, destroyCancellationToken);
         SetState(State.Tracking);
     }
 
-    private async Awaitable TriggerP2RangedAttackAsync()
+    private async Awaitable TriggerP2RangedAttackAsync(Transform target)
     {
         SetState(State.Attacking);
         animator?.SetTrigger("attackP2Ranged");
@@ -375,8 +386,10 @@ public class Boss : MonoBehaviour, ITargetable
         await Awaitable.WaitForSecondsAsync(0.4f, destroyCancellationToken);
 
         // TODO(gus): Instantiate energy blast
+        if (DistanceToTarget(target) < P2RangedAttackRange)
         {
-            playerCharacterController.PlayerHealth.TakeDamage(P2RangedAttackDamage);
+            var modifier = playerCharacterController.PlayerCombatController.IsBlocking ? 0.1f : 1f;
+            playerCharacterController.PlayerHealth.TakeDamage(modifier * P2RangedAttackDamage);
             AudioSource.PlayClipAtPoint(SfxAttackHit, transform.position);
         }
 
