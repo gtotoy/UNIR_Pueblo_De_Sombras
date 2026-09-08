@@ -284,7 +284,8 @@ public class Boss : MonoBehaviour, ITargetable
             // Offset aleatorio en XZ para evitar que los enemigos aparezcan apilados
             Vector2 scatter = UnityEngine.Random.insideUnitCircle * MinionSpawnScatterRadius;
             Vector3 spawnPos = spawnPoint.position + new Vector3(scatter.x, 0f, scatter.y);
-            Instantiate(MinionPrefab, spawnPos, spawnPoint.rotation);
+            var minion = Instantiate(MinionPrefab, spawnPos, spawnPoint.rotation);
+            minion.gameObject.SetActive(true);
             await Awaitable.WaitForSecondsAsync(MinionSpawnDelay, destroyCancellationToken);
         }
         SetState(State.Tracking);

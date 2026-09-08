@@ -5496,6 +5496,18 @@ PrefabInstance:
       propertyPath: MinionPrefab
       value: 
       objectReference: {fileID: 8255919874560979}
+    - target: {fileID: 9009604397071103459, guid: b98d9e154fe28dd49a1c6ac2ff4722af, type: 3}
+      propertyPath: MinionSpawnPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009604397071103459, guid: b98d9e154fe28dd49a1c6ac2ff4722af, type: 3}
+      propertyPath: 'MinionSpawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1185715722}
+    - target: {fileID: 9009604397071103459, guid: b98d9e154fe28dd49a1c6ac2ff4722af, type: 3}
+      propertyPath: 'MinionSpawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2011575007}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5596,7 +5608,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5275250963214456104, guid: 1e71a29d1fb2ab740b2b63661f35d9e8, type: 3}
       propertyPath: currentState
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6575798804230451214, guid: 1e71a29d1fb2ab740b2b63661f35d9e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7337,6 +7349,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1140008109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8013837262902311947, guid: cee1b9fe9d3e642ac9c28ee7f6d9b946, type: 3}
+  m_PrefabInstance: {fileID: 177923598919255152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1185715721
 GameObject:
   m_ObjectHideFlags: 0
@@ -7846,6 +7863,17 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 9e920a6342439dc419619561a7fd87bb, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &1532894398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9009604397071103459, guid: b98d9e154fe28dd49a1c6ac2ff4722af, type: 3}
+  m_PrefabInstance: {fileID: 206393217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b027b06bab15a2544b3e76bde063c9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss
 --- !u!1 &1548961071
 GameObject:
   m_ObjectHideFlags: 0
@@ -23994,10 +24022,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8013837262902311947, guid: cee1b9fe9d3e642ac9c28ee7f6d9b946, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8729906603124908098, guid: cee1b9fe9d3e642ac9c28ee7f6d9b946, type: 3}
       propertyPath: m_Name
       value: GameUIManager
@@ -24073,6 +24097,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1724671168}
     m_Modifications:
     - target: {fileID: 2953628985333667223, guid: c270296866eb5ab4ab02c9063bd60a3d, type: 3}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 1532894398}
+    - target: {fileID: 2953628985333667223, guid: c270296866eb5ab4ab02c9063bd60a3d, type: 3}
       propertyPath: Autoplay
       value: 0
       objectReference: {fileID: 0}
@@ -24093,9 +24121,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 720315556265217792, guid: b641cf600787ed44f86b440a7436af8e, type: 3}
     - target: {fileID: 2953628985333667223, guid: c270296866eb5ab4ab02c9063bd60a3d, type: 3}
+      propertyPath: bossHealthUI
+      value: 
+      objectReference: {fileID: 1140008109}
+    - target: {fileID: 2953628985333667223, guid: c270296866eb5ab4ab02c9063bd60a3d, type: 3}
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 5843700003223526332}
+    - target: {fileID: 2953628985333667223, guid: c270296866eb5ab4ab02c9063bd60a3d, type: 3}
+      propertyPath: bossSpawnPoint
+      value: 
+      objectReference: {fileID: 1185715722}
     - target: {fileID: 2953628985333667223, guid: c270296866eb5ab4ab02c9063bd60a3d, type: 3}
       propertyPath: 'spawnPoints.Array.data[0]'
       value: 
